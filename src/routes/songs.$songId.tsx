@@ -29,7 +29,7 @@ const STAGE_LABELS: Record<SongStage, string> = {
   complete: "Complete", archived: "Archived",
 };
 
-const TABS = [
+const TABS: { to: string; label: string; exact?: boolean }[] = [
   { to: ".", label: "Overview", exact: true },
   { to: "brief", label: "Brief" },
   { to: "generations", label: "Generations" },
@@ -39,7 +39,7 @@ const TABS = [
   { to: "mixes", label: "Mixes" },
   { to: "masters", label: "Masters" },
   { to: "notes", label: "Notes" },
-] as const;
+];
 
 function SongWorkspace() {
   const { songId } = Route.useParams();
