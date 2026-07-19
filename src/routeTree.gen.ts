@@ -9,7 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VocalsRouteImport } from './routes/vocals'
+import { Route as SystemRouteImport } from './routes/system'
+import { Route as StemsRouteImport } from './routes/stems'
 import { Route as SongsRouteImport } from './routes/songs'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as ReleasesRouteImport } from './routes/releases'
+import { Route as MixReviewRouteImport } from './routes/mix-review'
+import { Route as LibraryRouteImport } from './routes/library'
+import { Route as GenerateRouteImport } from './routes/generate'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SongsSongIdRouteImport } from './routes/songs.$songId'
 import { Route as SongsSongIdIndexRouteImport } from './routes/songs.$songId.index'
@@ -22,9 +30,49 @@ import { Route as SongsSongIdMastersRouteImport } from './routes/songs.$songId.m
 import { Route as SongsSongIdGenerationsRouteImport } from './routes/songs.$songId.generations'
 import { Route as SongsSongIdBriefRouteImport } from './routes/songs.$songId.brief'
 
+const VocalsRoute = VocalsRouteImport.update({
+  id: '/vocals',
+  path: '/vocals',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SystemRoute = SystemRouteImport.update({
+  id: '/system',
+  path: '/system',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StemsRoute = StemsRouteImport.update({
+  id: '/stems',
+  path: '/stems',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SongsRoute = SongsRouteImport.update({
   id: '/songs',
   path: '/songs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReleasesRoute = ReleasesRouteImport.update({
+  id: '/releases',
+  path: '/releases',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MixReviewRoute = MixReviewRouteImport.update({
+  id: '/mix-review',
+  path: '/mix-review',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LibraryRoute = LibraryRouteImport.update({
+  id: '/library',
+  path: '/library',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GenerateRoute = GenerateRouteImport.update({
+  id: '/generate',
+  path: '/generate',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -85,7 +133,15 @@ const SongsSongIdBriefRoute = SongsSongIdBriefRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/generate': typeof GenerateRoute
+  '/library': typeof LibraryRoute
+  '/mix-review': typeof MixReviewRoute
+  '/releases': typeof ReleasesRoute
+  '/settings': typeof SettingsRoute
   '/songs': typeof SongsRouteWithChildren
+  '/stems': typeof StemsRoute
+  '/system': typeof SystemRoute
+  '/vocals': typeof VocalsRoute
   '/songs/$songId': typeof SongsSongIdRouteWithChildren
   '/songs/$songId/brief': typeof SongsSongIdBriefRoute
   '/songs/$songId/generations': typeof SongsSongIdGenerationsRoute
@@ -99,7 +155,15 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/generate': typeof GenerateRoute
+  '/library': typeof LibraryRoute
+  '/mix-review': typeof MixReviewRoute
+  '/releases': typeof ReleasesRoute
+  '/settings': typeof SettingsRoute
   '/songs': typeof SongsRouteWithChildren
+  '/stems': typeof StemsRoute
+  '/system': typeof SystemRoute
+  '/vocals': typeof VocalsRoute
   '/songs/$songId/brief': typeof SongsSongIdBriefRoute
   '/songs/$songId/generations': typeof SongsSongIdGenerationsRoute
   '/songs/$songId/masters': typeof SongsSongIdMastersRoute
@@ -113,7 +177,15 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/generate': typeof GenerateRoute
+  '/library': typeof LibraryRoute
+  '/mix-review': typeof MixReviewRoute
+  '/releases': typeof ReleasesRoute
+  '/settings': typeof SettingsRoute
   '/songs': typeof SongsRouteWithChildren
+  '/stems': typeof StemsRoute
+  '/system': typeof SystemRoute
+  '/vocals': typeof VocalsRoute
   '/songs/$songId': typeof SongsSongIdRouteWithChildren
   '/songs/$songId/brief': typeof SongsSongIdBriefRoute
   '/songs/$songId/generations': typeof SongsSongIdGenerationsRoute
@@ -129,7 +201,15 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/generate'
+    | '/library'
+    | '/mix-review'
+    | '/releases'
+    | '/settings'
     | '/songs'
+    | '/stems'
+    | '/system'
+    | '/vocals'
     | '/songs/$songId'
     | '/songs/$songId/brief'
     | '/songs/$songId/generations'
@@ -143,7 +223,15 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/generate'
+    | '/library'
+    | '/mix-review'
+    | '/releases'
+    | '/settings'
     | '/songs'
+    | '/stems'
+    | '/system'
+    | '/vocals'
     | '/songs/$songId/brief'
     | '/songs/$songId/generations'
     | '/songs/$songId/masters'
@@ -156,7 +244,15 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/generate'
+    | '/library'
+    | '/mix-review'
+    | '/releases'
+    | '/settings'
     | '/songs'
+    | '/stems'
+    | '/system'
+    | '/vocals'
     | '/songs/$songId'
     | '/songs/$songId/brief'
     | '/songs/$songId/generations'
@@ -171,16 +267,80 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  GenerateRoute: typeof GenerateRoute
+  LibraryRoute: typeof LibraryRoute
+  MixReviewRoute: typeof MixReviewRoute
+  ReleasesRoute: typeof ReleasesRoute
+  SettingsRoute: typeof SettingsRoute
   SongsRoute: typeof SongsRouteWithChildren
+  StemsRoute: typeof StemsRoute
+  SystemRoute: typeof SystemRoute
+  VocalsRoute: typeof VocalsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/vocals': {
+      id: '/vocals'
+      path: '/vocals'
+      fullPath: '/vocals'
+      preLoaderRoute: typeof VocalsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/system': {
+      id: '/system'
+      path: '/system'
+      fullPath: '/system'
+      preLoaderRoute: typeof SystemRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/stems': {
+      id: '/stems'
+      path: '/stems'
+      fullPath: '/stems'
+      preLoaderRoute: typeof StemsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/songs': {
       id: '/songs'
       path: '/songs'
       fullPath: '/songs'
       preLoaderRoute: typeof SongsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/releases': {
+      id: '/releases'
+      path: '/releases'
+      fullPath: '/releases'
+      preLoaderRoute: typeof ReleasesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mix-review': {
+      id: '/mix-review'
+      path: '/mix-review'
+      fullPath: '/mix-review'
+      preLoaderRoute: typeof MixReviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/library': {
+      id: '/library'
+      path: '/library'
+      fullPath: '/library'
+      preLoaderRoute: typeof LibraryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/generate': {
+      id: '/generate'
+      path: '/generate'
+      fullPath: '/generate'
+      preLoaderRoute: typeof GenerateRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -303,7 +463,15 @@ const SongsRouteWithChildren = SongsRoute._addFileChildren(SongsRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  GenerateRoute: GenerateRoute,
+  LibraryRoute: LibraryRoute,
+  MixReviewRoute: MixReviewRoute,
+  ReleasesRoute: ReleasesRoute,
+  SettingsRoute: SettingsRoute,
   SongsRoute: SongsRouteWithChildren,
+  StemsRoute: StemsRoute,
+  SystemRoute: SystemRoute,
+  VocalsRoute: VocalsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
