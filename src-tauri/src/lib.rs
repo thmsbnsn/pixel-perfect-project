@@ -1,5 +1,9 @@
 use serde::Serialize;
-use std::{env, path::{Path, PathBuf}, process::Command};
+use std::{
+    env,
+    path::{Path, PathBuf},
+    process::Command,
+};
 
 const DEFAULT_WORKSPACE_ROOT: &str = r"G:\AI-Band-Studio";
 
@@ -49,26 +53,35 @@ fn command_output(program: &str, args: &[&str]) -> Option<String> {
     if !output.status.success() {
         return None;
     }
-    String::from_utf8(output.stdout).ok().map(|value| value.trim().to_string())
+    String::from_utf8(output.stdout)
+        .ok()
+        .map(|value| value.trim().to_string())
 }
 
 fn find_external_app(app: &str) -> Option<PathBuf> {
     let local_app_data = env::var_os("LOCALAPPDATA").map(PathBuf::from);
     let candidates: Vec<PathBuf> = match app {
         "reaper" => vec![
+            PathBuf::from(r"G:\Software\REAPER\reaper.exe"),
             PathBuf::from(r"C:\Program Files\REAPER (x64)\reaper.exe"),
             PathBuf::from(r"C:\Program Files\REAPER\reaper.exe"),
         ],
         "uvr" => {
             let mut paths = vec![
+                PathBuf::from(r"G:\Software\Ultimate Vocal Remover\UVR.exe"),
                 PathBuf::from(r"C:\Program Files\Ultimate Vocal Remover\UVR.exe"),
-                PathBuf::from(r"C:\Program Files\Ultimate Vocal Remover\Ultimate Vocal Remover.exe"),
+                PathBuf::from(
+                    r"C:\Program Files\Ultimate Vocal Remover\Ultimate Vocal Remover.exe",
+                ),
             ];
             if let Some(base) = local_app_data {
                 paths.push(base.join(r"Programs\Ultimate Vocal Remover\UVR.exe"));
             }
             paths
         }
+        "comfyui" => vec![PathBuf::from(
+            r"G:\Software\Comfy Desktop\Comfy Desktop.exe",
+        )],
         _ => vec![],
     };
     candidates.into_iter().find(|path| path.is_file())
@@ -92,7 +105,10 @@ fn get_system_status() -> Vec<ComponentStatus> {
 
     let gpu = command_output(
         "nvidia-smi",
-        &["--query-gpu=name,driver_version,memory.total,memory.used", "--format=csv,noheader,nounits"],
+        &[
+            "--query-gpu=name,driver_version,memory.total,memory.used",
+            "--format=csv,noheader,nounits",
+        ],
     );
     statuses.push(match gpu {
         Some(details) => status(
@@ -116,7 +132,11 @@ fn get_system_status() -> Vec<ComponentStatus> {
     statuses.push(status(
         "musicgen",
         "MusicGen (AudioCraft)",
-        if exists_from_root(r"02-Models\AudioCraft\source\.venv\Scripts\python.exe") { "installed" } else { "unavailable" },
+        if exists_from_root(r"02-Models\AudioCraft\source\.venv\Scripts\python.exe") {
+            "installed"
+        } else {
+            "unavailable"
+        },
         Some("1.4.0a2"),
         Some("cuda"),
         Some("Local AudioCraft runtime.".into()),
@@ -124,7 +144,11 @@ fn get_system_status() -> Vec<ComponentStatus> {
     statuses.push(status(
         "stable-audio",
         "Stable Audio 3 Small-Music",
-        if exists_from_root(r"02-Models\Stable-Audio-3\source\.venv\Scripts\stable-audio.exe") { "installed" } else { "unavailable" },
+        if exists_from_root(r"02-Models\Stable-Audio-3\source\.venv\Scripts\stable-audio.exe") {
+            "installed"
+        } else {
+            "unavailable"
+        },
         Some("small-music"),
         Some("cpu"),
         Some("Verified native Windows CPU route.".into()),
@@ -132,7 +156,11 @@ fn get_system_status() -> Vec<ComponentStatus> {
     statuses.push(status(
         "fish-speech",
         "Fish Speech 1.5",
-        if exists_from_root(r"02-Models\Fish-Speech-1.5\source\.venv\Scripts\python.exe") { "installed" } else { "unavailable" },
+        if exists_from_root(r"02-Models\Fish-Speech-1.5\source\.venv\Scripts\python.exe") {
+            "installed"
+        } else {
+            "unavailable"
+        },
         Some("1.5.0"),
         Some("cuda"),
         Some("Noncommercial CC BY-NC-SA 4.0.".into()),
@@ -143,37 +171,76 @@ fn get_system_status() -> Vec<ComponentStatus> {
     statuses.push(status(
         "ffmpeg",
         "FFmpeg",
-        if ffmpeg_version.is_some() { "installed" } else { "unverified" },
+        if ffmpeg_version.is_some() {
+            "installed"
+        } else {
+            "unverified"
+        },
         ffmpeg_version.as_deref(),
         None,
-        Some(if ffmpeg_version.is_some() { "Available on PATH." } else { "Not available on the desktop process PATH." }.into()),
+        Some(
+            if ffmpeg_version.is_some() {
+                "Available on PATH."
+            } else {
+                "Not available on the desktop process PATH."
+            }
+            .into(),
+        ),
     ));
 
-    for (id, label) in [("uvr", "Ultimate Vocal Remover"), ("reaper", "REAPER")] {
+    for (id, label) in [
+        ("uvr", "Ultimate Vocal Remover"),
+        ("reaper", "REAPER"),
+        ("comfyui", "ComfyUI Desktop"),
+    ] {
         let found = find_external_app(id);
         statuses.push(status(
             id,
             label,
-            if found.is_some() { "installed" } else { "unverified" },
+            if found.is_some() {
+                "installed"
+            } else {
+                "unverified"
+            },
             None,
             None,
-            Some(found.map(|path| path.to_string_lossy().into_owned()).unwrap_or_else(|| "Application path was not detected.".into())),
+            Some(
+                found
+                    .map(|path| path.to_string_lossy().into_owned())
+                    .unwrap_or_else(|| "Application path was not detected.".into()),
+            ),
         ));
     }
 
-    let stable_checkpoint = workspace_root().join(r"02-Models\Stable-Audio-3\checkpoints\huggingface");
+    let stable_checkpoint =
+        workspace_root().join(r"02-Models\Stable-Audio-3\checkpoints\huggingface");
     statuses.push(status(
         "hf",
         "Hugging Face access",
-        if stable_checkpoint.is_dir() { "available" } else { "unverified" },
+        if stable_checkpoint.is_dir() {
+            "available"
+        } else {
+            "unverified"
+        },
         None,
         None,
-        Some(if stable_checkpoint.is_dir() { "Stable Audio checkpoint cache is present." } else { "Checkpoint access has not been verified." }.into()),
+        Some(
+            if stable_checkpoint.is_dir() {
+                "Stable Audio checkpoint cache is present."
+            } else {
+                "Checkpoint access has not been verified."
+            }
+            .into(),
+        ),
     ));
     statuses.push(status(
         "storage",
         "Workspace storage",
-        if workspace_root().is_dir() { "available" } else { "error" },
+        if workspace_root().is_dir() {
+            "available"
+        } else {
+            "error"
+        },
         None,
         None,
         Some(workspace_root().to_string_lossy().into_owned()),
@@ -209,17 +276,25 @@ fn reveal_path(path: String) -> Result<(), String> {
     } else {
         command.arg(&canonical);
     }
-    command.spawn().map_err(|error| format!("Could not open Explorer: {error}"))?;
+    command
+        .spawn()
+        .map_err(|error| format!("Could not open Explorer: {error}"))?;
     Ok(())
 }
 
 #[tauri::command]
 fn launch_external_app(app: String) -> Result<(), String> {
-    if app != "reaper" && app != "uvr" {
+    if app != "reaper" && app != "uvr" && app != "comfyui" {
         return Err("Unsupported external application.".into());
     }
+    let label = match app.as_str() {
+        "reaper" => "REAPER",
+        "uvr" => "UVR",
+        "comfyui" => "ComfyUI Desktop",
+        _ => unreachable!(),
+    };
     let path = find_external_app(&app).ok_or_else(|| {
-        format!("{} was not detected. Install it or configure its path in Settings.", if app == "reaper" { "REAPER" } else { "UVR" })
+        format!("{label} was not detected. Install it or configure its path in Settings.")
     })?;
     Command::new(path)
         .spawn()

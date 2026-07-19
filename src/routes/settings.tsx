@@ -85,13 +85,17 @@ function SettingsPage() {
       <Panel className="p-5">
         <PanelHeader
           title="External app paths"
-          description="These paths must resolve before the bridge can launch UVR or REAPER."
+          description="Verified local applications available to the native desktop bridge."
         />
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
-          <Field label="REAPER executable" placeholder="C:\\Program Files\\REAPER\\reaper.exe" />
+          <Field label="REAPER executable" defaultValue="G:\\Software\\REAPER\\reaper.exe" />
           <Field
             label="UVR executable"
-            placeholder="C:\\Program Files\\Ultimate Vocal Remover\\UVR.exe"
+            defaultValue="G:\\Software\\Ultimate Vocal Remover\\UVR.exe"
+          />
+          <Field
+            label="ComfyUI Desktop executable"
+            defaultValue="G:\\Software\\Comfy Desktop\\Comfy Desktop.exe"
           />
           <Field label="FFmpeg" defaultValue="ffmpeg (on PATH)" />
         </div>
