@@ -6,11 +6,20 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
-  Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table";
 import { LayoutGrid, List, Music2, FolderOpen, Archive, Copy } from "lucide-react";
 import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import { NewSongDialog } from "@/features/songs/new-song-dialog";
 import { relativeTime, formatDuration } from "@/lib/format";
@@ -19,11 +28,20 @@ import { bridge } from "@/bridge";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import {
-  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
-  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import {
-  DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
 
@@ -38,9 +56,16 @@ export const Route = createFileRoute("/songs")({
 });
 
 const STAGE_LABELS: Record<SongStage, string> = {
-  brief: "Brief", generating: "Generating", selecting: "Selecting", stems: "Stems",
-  arranging: "Arranging", vocals: "Vocals", mixing: "Mixing", mastering: "Mastering",
-  complete: "Complete", archived: "Archived",
+  brief: "Brief",
+  generating: "Generating",
+  selecting: "Selecting",
+  stems: "Stems",
+  arranging: "Arranging",
+  vocals: "Vocals",
+  mixing: "Mixing",
+  mastering: "Mastering",
+  complete: "Complete",
+  archived: "Archived",
 };
 
 function SongsPage() {
@@ -78,19 +103,31 @@ function SongsPage() {
             className="h-9 w-56"
           />
           <Select value={stage} onValueChange={setStage}>
-            <SelectTrigger className="h-9 w-40"><SelectValue placeholder="Stage" /></SelectTrigger>
+            <SelectTrigger className="h-9 w-40">
+              <SelectValue placeholder="Stage" />
+            </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All stages</SelectItem>
-              {Object.entries(STAGE_LABELS).filter(([k]) => k !== "archived").map(([k, v]) => (
-                <SelectItem key={k} value={k}>{v}</SelectItem>
-              ))}
+              {Object.entries(STAGE_LABELS)
+                .filter(([k]) => k !== "archived")
+                .map(([k, v]) => (
+                  <SelectItem key={k} value={k}>
+                    {v}
+                  </SelectItem>
+                ))}
             </SelectContent>
           </Select>
           <Select value={genre} onValueChange={setGenre}>
-            <SelectTrigger className="h-9 w-40"><SelectValue placeholder="Genre" /></SelectTrigger>
+            <SelectTrigger className="h-9 w-40">
+              <SelectValue placeholder="Genre" />
+            </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All genres</SelectItem>
-              {genres.map((g) => <SelectItem key={g} value={g}>{g}</SelectItem>)}
+              {genres.map((g) => (
+                <SelectItem key={g} value={g}>
+                  {g}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
           <div className="flex overflow-hidden rounded-md border border-border">
@@ -121,21 +158,31 @@ function SongsPage() {
 
       {isLoading ? (
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {Array.from({ length: 6 }).map((_, i) => (<Skeleton key={i} className="h-40" />))}
+          {Array.from({ length: 6 }).map((_, i) => (
+            <Skeleton key={i} className="h-40" />
+          ))}
         </div>
       ) : error ? (
         <Panel>
           <p className="text-sm text-destructive">Could not load songs.</p>
-          <Button size="sm" variant="outline" className="mt-3" onClick={() => refetch()}>Retry</Button>
+          <Button size="sm" variant="outline" className="mt-3" onClick={() => refetch()}>
+            Retry
+          </Button>
         </Panel>
       ) : filtered.length === 0 ? (
         <EmptyState
           icon={<Music2 className="h-5 w-5" />}
           title={data && data.length > 0 ? "No songs match your filters" : "No songs yet"}
-          description={data && data.length > 0
-            ? "Try clearing the filters or search term."
-            : "Create your first project to start the production workflow."}
-          action={data && data.length === 0 ? (<Button onClick={() => setNewOpen(true)}>Create a song</Button>) : undefined}
+          description={
+            data && data.length > 0
+              ? "Try clearing the filters or search term."
+              : "Create your first project to start the production workflow."
+          }
+          action={
+            data && data.length === 0 ? (
+              <Button onClick={() => setNewOpen(true)}>Create a song</Button>
+            ) : undefined
+          }
         />
       ) : view === "grid" ? (
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
@@ -173,8 +220,12 @@ function SongsPage() {
                   <TableCell>{STAGE_LABELS[s.stage]}</TableCell>
                   <TableCell className="tabular">{s.bpm ?? "—"}</TableCell>
                   <TableCell>{s.key ?? "—"}</TableCell>
-                  <TableCell className="tabular">{formatDuration(s.targetDurationSeconds)}</TableCell>
-                  <TableCell className="text-muted-foreground">{relativeTime(s.updatedAt)}</TableCell>
+                  <TableCell className="tabular">
+                    {formatDuration(s.targetDurationSeconds)}
+                  </TableCell>
+                  <TableCell className="text-muted-foreground">
+                    {relativeTime(s.updatedAt)}
+                  </TableCell>
                   <TableCell className="text-right tabular text-muted-foreground">
                     {s.counts.generations + s.counts.stems + s.counts.vocals + s.counts.mixes}
                   </TableCell>
@@ -195,7 +246,8 @@ function SongsPage() {
           <AlertDialogHeader>
             <AlertDialogTitle>Archive this song?</AlertDialogTitle>
             <AlertDialogDescription>
-              {archiveTarget?.title} will be hidden from the songs list. Files stay on disk and the project can be restored later.
+              {archiveTarget?.title} will be hidden from the songs list. Files stay on disk and the
+              project can be restored later.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -234,11 +286,15 @@ function SongCard({ song, onArchive }: { song: SongProject; onArchive: () => voi
             {song.title}
           </p>
           <p className="mt-0.5 truncate text-[11px] text-muted-foreground">
-            {song.bpm ? `${song.bpm} BPM · ` : ""}{song.key ?? "no key"} · {song.timeSignature}
+            {song.bpm ? `${song.bpm} BPM · ` : ""}
+            {song.key ?? "no key"} · {song.timeSignature}
           </p>
           <div className="mt-3 flex flex-wrap gap-1">
             {song.genreTags.slice(0, 3).map((t) => (
-              <span key={t} className="rounded border border-border bg-surface-2 px-1.5 py-0.5 text-[10px] text-muted-foreground">
+              <span
+                key={t}
+                className="rounded border border-border bg-surface-2 px-1.5 py-0.5 text-[10px] text-muted-foreground"
+              >
                 {t}
               </span>
             ))}
@@ -268,15 +324,23 @@ function SongRowMenu({ song, onArchive }: { song: SongProject; onArchive: () => 
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem asChild>
-          <Link to="/songs/$songId" params={{ songId: song.id }}>Open</Link>
+          <Link to="/songs/$songId" params={{ songId: song.id }}>
+            Open
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={() => toast("Duplicate is a bridge action", { description: "Available when the local bridge is connected." })}
+          onClick={() =>
+            toast("Duplicate is a bridge action", {
+              description: "Available when the local bridge is connected.",
+            })
+          }
         >
           <Copy className="mr-2 h-4 w-4" /> Duplicate from template
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={() => bridge.revealPath(song.folderPath).then(() => toast.success("Reveal requested"))}
+          onClick={() =>
+            bridge.revealPath(song.folderPath).then(() => toast.success("Reveal requested"))
+          }
         >
           <FolderOpen className="mr-2 h-4 w-4" /> Reveal folder
         </DropdownMenuItem>

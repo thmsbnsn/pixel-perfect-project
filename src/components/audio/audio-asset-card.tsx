@@ -24,8 +24,7 @@ export function AudioAssetCard({
   const isPlaying = playingId === asset.id;
   const progress = isPlaying && durationSec > 0 ? positionSec / durationSec : 0;
 
-  const onToggle = () =>
-    toggle(asset.id, { seed: asset.seed, durationSec: asset.durationSeconds });
+  const onToggle = () => toggle(asset.id, { seed: asset.seed, durationSec: asset.durationSeconds });
 
   const onFav = async () => {
     try {
@@ -126,7 +125,12 @@ export function AudioAssetCard({
               </Tooltip>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button size="icon" variant="ghost" onClick={onReveal} aria-label="Reveal in folder">
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    onClick={onReveal}
+                    aria-label="Reveal in folder"
+                  >
                     <FolderOpen className="h-4 w-4" />
                   </Button>
                 </TooltipTrigger>
@@ -137,7 +141,9 @@ export function AudioAssetCard({
         ) : null}
       </div>
 
-      {actions ? <div className="mt-3 flex flex-wrap gap-2 border-t border-border pt-3">{actions}</div> : null}
+      {actions ? (
+        <div className="mt-3 flex flex-wrap gap-2 border-t border-border pt-3">{actions}</div>
+      ) : null}
     </div>
   );
 }

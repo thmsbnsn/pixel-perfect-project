@@ -23,7 +23,9 @@ function MastersTab() {
   }
   return (
     <div className="grid gap-3 lg:grid-cols-2">
-      {masters.map((a) => <AudioAssetCard key={a.id} asset={a} />)}
+      {masters.map((a) => (
+        <AudioAssetCard key={a.id} asset={a} />
+      ))}
     </div>
   );
 }

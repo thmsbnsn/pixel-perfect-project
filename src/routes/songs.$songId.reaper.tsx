@@ -28,7 +28,11 @@ function ReaperTab() {
             className="mt-4"
             title="REAPER path is not configured"
             description="The bridge cannot launch REAPER until its executable path is set in Settings → External app paths."
-            action={<Button size="sm" variant="outline" asChild><a href="/settings">Open Settings</a></Button>}
+            action={
+              <Button size="sm" variant="outline" asChild>
+                <a href="/settings">Open Settings</a>
+              </Button>
+            }
           />
         ) : (
           <p className="mt-4 text-sm text-muted-foreground">
@@ -38,16 +42,22 @@ function ReaperTab() {
         <div className="mt-4 flex gap-2">
           <Button
             onClick={() =>
-              bridge.openReaper(songId).catch((e: Error) =>
-                toast.error(e.message, { description: "Configure the REAPER path in Settings." }),
-              )
+              bridge
+                .openReaper(songId)
+                .catch((e: Error) =>
+                  toast.error(e.message, { description: "Configure the REAPER path in Settings." }),
+                )
             }
           >
             Open in REAPER
           </Button>
           <Button
             variant="outline"
-            onClick={() => toast("Prepare-project is a bridge action", { description: "Available when the local bridge is connected." })}
+            onClick={() =>
+              toast("Prepare-project is a bridge action", {
+                description: "Available when the local bridge is connected.",
+              })
+            }
           >
             Prepare project
           </Button>

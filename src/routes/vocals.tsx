@@ -8,7 +8,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import { useAssets, useSongs, useVoiceProfiles } from "@/hooks/use-bridge";
 import { bridge } from "@/bridge";
@@ -62,7 +66,8 @@ function VocalsPage() {
     }
   };
 
-  const referenceReady = mode === "random" ||
+  const referenceReady =
+    mode === "random" ||
     (mode === "reference" && refId && refTranscript.trim().length > 0 && consent);
   const canSubmit = text.trim().length > 0 && Boolean(referenceReady);
 
@@ -81,9 +86,9 @@ function VocalsPage() {
           <div>
             <p className="font-medium">Noncommercial · CC BY-NC-SA 4.0</p>
             <p className="mt-1 text-warn/90">
-              Fish Speech 1.5 is licensed for noncommercial use. It is intended here for guide vocals
-              and prototypes, not cleared commercial masters. It is speech and guide-vocal technology,
-              not a dedicated singing conversion engine.
+              Fish Speech 1.5 is licensed for noncommercial use. It is intended here for guide
+              vocals and prototypes, not cleared commercial masters. It is speech and guide-vocal
+              technology, not a dedicated singing conversion engine.
             </p>
           </div>
         </div>
@@ -101,11 +106,15 @@ function VocalsPage() {
               <div>
                 <Label>Song</Label>
                 <Select value={songId} onValueChange={setSongId}>
-                  <SelectTrigger><SelectValue placeholder="No song" /></SelectTrigger>
+                  <SelectTrigger>
+                    <SelectValue placeholder="No song" />
+                  </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="none">No song</SelectItem>
                     {(songs ?? []).map((s) => (
-                      <SelectItem key={s.id} value={s.id}>{s.title}</SelectItem>
+                      <SelectItem key={s.id} value={s.id}>
+                        {s.title}
+                      </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
@@ -113,8 +122,12 @@ function VocalsPage() {
 
               <div>
                 <Label>Text / lyrics</Label>
-                <Textarea rows={4} value={text} onChange={(e) => setText(e.target.value)}
-                  placeholder="Lyric or spoken guide line…" />
+                <Textarea
+                  rows={4}
+                  value={text}
+                  onChange={(e) => setText(e.target.value)}
+                  placeholder="Lyric or spoken guide line…"
+                />
               </div>
 
               <TabsContent value="reference" className="m-0 space-y-4">
@@ -122,32 +135,50 @@ function VocalsPage() {
                   <Label>Reference audio</Label>
                   <Select value={refId} onValueChange={setRefId}>
                     <SelectTrigger>
-                      <SelectValue placeholder={
-                        references.length ? "Pick a reference clip" : "No reference clips imported yet"
-                      } />
+                      <SelectValue
+                        placeholder={
+                          references.length
+                            ? "Pick a reference clip"
+                            : "No reference clips imported yet"
+                        }
+                      />
                     </SelectTrigger>
                     <SelectContent>
                       {references.map((r) => (
-                        <SelectItem key={r.id} value={r.id}>{r.name}</SelectItem>
+                        <SelectItem key={r.id} value={r.id}>
+                          {r.name}
+                        </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                   <p className="mt-1 text-[11px] text-muted-foreground">
-                    Prefer a clean 10–20 second recording with one speaker and little background noise.
+                    Prefer a clean 10–20 second recording with one speaker and little background
+                    noise.
                   </p>
                 </div>
                 <div>
                   <Label>Exact reference transcript</Label>
-                  <Textarea rows={3} value={refTranscript} onChange={(e) => setRefTranscript(e.target.value)}
-                    placeholder="Type exactly what is said in the reference clip." />
+                  <Textarea
+                    rows={3}
+                    value={refTranscript}
+                    onChange={(e) => setRefTranscript(e.target.value)}
+                    placeholder="Type exactly what is said in the reference clip."
+                  />
                 </div>
                 <div>
                   <Label>Reference profile name</Label>
-                  <Input value={profileName} onChange={(e) => setProfileName(e.target.value)}
-                    placeholder="Guide — Male, warm mid-range" />
+                  <Input
+                    value={profileName}
+                    onChange={(e) => setProfileName(e.target.value)}
+                    placeholder="Guide — Male, warm mid-range"
+                  />
                 </div>
                 <label className="flex items-start gap-2 rounded-md border border-border bg-surface-2 px-3 py-2 text-xs">
-                  <Checkbox checked={consent} onCheckedChange={(v) => setConsent(Boolean(v))} className="mt-0.5" />
+                  <Checkbox
+                    checked={consent}
+                    onCheckedChange={(v) => setConsent(Boolean(v))}
+                    className="mt-0.5"
+                  />
                   <span className="text-foreground">
                     I have the speaker's permission to use this voice reference.
                   </span>
@@ -158,9 +189,15 @@ function VocalsPage() {
                 <div>
                   <Label>Seed</Label>
                   <div className="flex gap-2">
-                    <Input value={seed} onChange={(e) => setSeed(e.target.value.replace(/[^0-9]/g, ""))} placeholder="random" />
+                    <Input
+                      value={seed}
+                      onChange={(e) => setSeed(e.target.value.replace(/[^0-9]/g, ""))}
+                      placeholder="random"
+                    />
                     <Button
-                      size="icon" variant="outline" aria-label="Randomize seed"
+                      size="icon"
+                      variant="outline"
+                      aria-label="Randomize seed"
                       onClick={() => setSeed(Math.floor(Math.random() * 100000).toString())}
                     >
                       <Dice5 className="h-4 w-4" />
@@ -170,7 +207,9 @@ function VocalsPage() {
                 <div>
                   <Label>Output format</Label>
                   <Select value={format} onValueChange={(v) => setFormat(v as typeof format)}>
-                    <SelectTrigger><SelectValue /></SelectTrigger>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="wav">WAV · 44.1 kHz</SelectItem>
                       <SelectItem value="flac">FLAC · 44.1 kHz</SelectItem>
@@ -180,7 +219,8 @@ function VocalsPage() {
               </div>
 
               <p className="rounded border border-border bg-surface-2 px-2 py-1.5 font-mono text-[11px] text-muted-foreground">
-                {songs?.find((s) => s.id === songId)?.folderPath ?? "D:\\Varynt\\Vocals"}\\vocals\\fs-*.{format}
+                {songs?.find((s) => s.id === songId)?.folderPath ?? "D:\\Varynt\\Vocals"}
+                \\vocals\\fs-*.{format}
               </p>
             </div>
           </Tabs>
@@ -203,14 +243,16 @@ function VocalsPage() {
                 <p className="rounded-md border border-dashed border-border bg-surface-2/50 px-3 py-6 text-center text-xs text-muted-foreground">
                   No consented profiles saved yet.
                 </p>
-              ) : (profiles ?? []).map((p) => (
-                <li key={p.id} className="rounded-md border border-border bg-surface-2 px-3 py-2">
-                  <p className="text-sm text-foreground">{p.name}</p>
-                  <p className="mt-0.5 text-[11px] text-muted-foreground">
-                    Consent confirmed · created {new Date(p.createdAt).toLocaleDateString()}
-                  </p>
-                </li>
-              ))}
+              ) : (
+                (profiles ?? []).map((p) => (
+                  <li key={p.id} className="rounded-md border border-border bg-surface-2 px-3 py-2">
+                    <p className="text-sm text-foreground">{p.name}</p>
+                    <p className="mt-0.5 text-[11px] text-muted-foreground">
+                      Consent confirmed · created {new Date(p.createdAt).toLocaleDateString()}
+                    </p>
+                  </li>
+                ))
+              )}
             </ul>
           </Panel>
 
@@ -221,7 +263,9 @@ function VocalsPage() {
                 <p className="rounded-md border border-dashed border-border bg-surface-2/50 px-3 py-6 text-center text-xs text-muted-foreground">
                   Generated voice takes will appear here.
                 </p>
-              ) : outputs.map((a) => <AudioAssetCard key={a.id} asset={a} />)}
+              ) : (
+                outputs.map((a) => <AudioAssetCard key={a.id} asset={a} />)
+              )}
             </div>
           </Panel>
         </div>

@@ -58,7 +58,8 @@ function ReleasesPage() {
                   <div>
                     <h2 className="text-lg font-semibold text-foreground">{s.title}</h2>
                     <p className="text-xs text-muted-foreground">
-                      {s.bpm ? `${s.bpm} BPM · ` : ""}{s.key ?? "no key"} · {s.timeSignature}
+                      {s.bpm ? `${s.bpm} BPM · ` : ""}
+                      {s.key ?? "no key"} · {s.timeSignature}
                     </p>
                   </div>
                   <div className="flex items-center gap-2">
@@ -107,15 +108,29 @@ function ReleasesPage() {
                     <PanelHeader title="Rights checklist" />
                     <ul className="mt-3 space-y-1.5">
                       {CHECKLIST.map((item, i) => (
-                        <li key={item} className="flex items-center gap-2 rounded border border-border bg-surface-2 px-2.5 py-1.5 text-xs">
+                        <li
+                          key={item}
+                          className="flex items-center gap-2 rounded border border-border bg-surface-2 px-2.5 py-1.5 text-xs"
+                        >
                           <Checkbox defaultChecked={i === 0 && !!master} />
                           <span className="text-foreground">{item}</span>
                         </li>
                       ))}
                     </ul>
                     <div className="mt-3 flex gap-2">
-                      <Button size="sm" variant="outline" onClick={() => toast.success("Release notes saved (mock)")}>Save</Button>
-                      <Button size="sm" onClick={() => toast.success("Export package built (mock)")}>Export package</Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => toast.success("Release notes saved (mock)")}
+                      >
+                        Save
+                      </Button>
+                      <Button
+                        size="sm"
+                        onClick={() => toast.success("Export package built (mock)")}
+                      >
+                        Export package
+                      </Button>
                     </div>
                   </div>
                 </div>

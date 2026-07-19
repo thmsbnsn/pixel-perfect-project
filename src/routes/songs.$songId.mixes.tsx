@@ -25,9 +25,13 @@ function MixesTab() {
   return (
     <div className="space-y-4">
       <div className="grid gap-3 lg:grid-cols-2">
-        {mixes.map((a) => <AudioAssetCard key={a.id} asset={a} />)}
+        {mixes.map((a) => (
+          <AudioAssetCard key={a.id} asset={a} />
+        ))}
       </div>
-      <Button asChild variant="outline"><Link to="/mix-review">Open Mix Review</Link></Button>
+      <Button asChild variant="outline">
+        <Link to="/mix-review">Open Mix Review</Link>
+      </Button>
     </div>
   );
 }

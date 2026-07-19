@@ -15,8 +15,7 @@ import type {
   VoiceProfile,
 } from "./types";
 
-export type JobEvent =
-  | { kind: "created" | "updated" | "removed"; job: StudioJob };
+export type JobEvent = { kind: "created" | "updated" | "removed"; job: StudioJob };
 
 export type BridgeConnection = {
   connected: boolean;

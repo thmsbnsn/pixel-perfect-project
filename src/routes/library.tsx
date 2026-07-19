@@ -3,7 +3,11 @@ import { useState } from "react";
 import { Panel, PanelHeader, EmptyState } from "@/components/common/panel";
 import { Input } from "@/components/ui/input";
 import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { useAssets, useSongs } from "@/hooks/use-bridge";
@@ -12,7 +16,12 @@ import { Library, LayoutGrid, List } from "lucide-react";
 import type { AssetKind, EngineId } from "@/bridge/types";
 import { relativeTime, formatDuration } from "@/lib/format";
 import {
-  Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table";
 
 export const Route = createFileRoute("/library")({
@@ -51,7 +60,14 @@ function LibraryPage() {
     if (category !== "all" && a.kind !== category) return false;
     if (songId !== "all" && a.songId !== songId) return false;
     if (engine !== "all" && a.engine !== engine) return false;
-    if (q && !(a.name.toLowerCase().includes(q.toLowerCase()) || (a.prompt ?? "").toLowerCase().includes(q.toLowerCase()))) return false;
+    if (
+      q &&
+      !(
+        a.name.toLowerCase().includes(q.toLowerCase()) ||
+        (a.prompt ?? "").toLowerCase().includes(q.toLowerCase())
+      )
+    )
+      return false;
     return true;
   });
 
@@ -65,16 +81,29 @@ function LibraryPage() {
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search name or prompt…" className="h-9 w-64" />
+          <Input
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="Search name or prompt…"
+            className="h-9 w-64"
+          />
           <Select value={songId} onValueChange={setSongId}>
-            <SelectTrigger className="h-9 w-40"><SelectValue placeholder="Song" /></SelectTrigger>
+            <SelectTrigger className="h-9 w-40">
+              <SelectValue placeholder="Song" />
+            </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All songs</SelectItem>
-              {(songs ?? []).map((s) => (<SelectItem key={s.id} value={s.id}>{s.title}</SelectItem>))}
+              {(songs ?? []).map((s) => (
+                <SelectItem key={s.id} value={s.id}>
+                  {s.title}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
           <Select value={engine} onValueChange={(v) => setEngine(v as EngineId | "all")}>
-            <SelectTrigger className="h-9 w-40"><SelectValue placeholder="Engine" /></SelectTrigger>
+            <SelectTrigger className="h-9 w-40">
+              <SelectValue placeholder="Engine" />
+            </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All engines</SelectItem>
               <SelectItem value="musicgen">MusicGen</SelectItem>
@@ -85,15 +114,19 @@ function LibraryPage() {
           </Select>
           <div className="flex overflow-hidden rounded-md border border-border">
             <Button
-              size="sm" variant={view === "list" ? "secondary" : "ghost"}
-              className="h-9 rounded-none" onClick={() => setView("list")}
+              size="sm"
+              variant={view === "list" ? "secondary" : "ghost"}
+              className="h-9 rounded-none"
+              onClick={() => setView("list")}
               aria-label="Card view"
             >
               <LayoutGrid className="h-4 w-4" />
             </Button>
             <Button
-              size="sm" variant={view === "table" ? "secondary" : "ghost"}
-              className="h-9 rounded-none" onClick={() => setView("table")}
+              size="sm"
+              variant={view === "table" ? "secondary" : "ghost"}
+              className="h-9 rounded-none"
+              onClick={() => setView("table")}
               aria-label="Table view"
             >
               <List className="h-4 w-4" />
@@ -107,15 +140,18 @@ function LibraryPage() {
           <ul className="space-y-1">
             {CATEGORIES.map((c) => {
               const active = category === c.key;
-              const count = c.key === "all"
-                ? (all ?? []).length
-                : (all ?? []).filter((a) => a.kind === c.key).length;
+              const count =
+                c.key === "all"
+                  ? (all ?? []).length
+                  : (all ?? []).filter((a) => a.kind === c.key).length;
               return (
                 <li key={c.key}>
                   <button
                     onClick={() => setCategory(c.key)}
                     className={`flex w-full items-center justify-between rounded-md px-2.5 py-1.5 text-sm transition-colors ${
-                      active ? "bg-surface-3 text-foreground" : "text-muted-foreground hover:bg-surface-2 hover:text-foreground"
+                      active
+                        ? "bg-surface-3 text-foreground"
+                        : "text-muted-foreground hover:bg-surface-2 hover:text-foreground"
                     }`}
                   >
                     <span>{c.label}</span>
@@ -136,7 +172,9 @@ function LibraryPage() {
             />
           ) : view === "list" ? (
             <div className="grid gap-2 lg:grid-cols-2">
-              {filtered.map((a) => (<AudioAssetCard key={a.id} asset={a} />))}
+              {filtered.map((a) => (
+                <AudioAssetCard key={a.id} asset={a} />
+              ))}
             </div>
           ) : (
             <Panel padded={false}>
@@ -157,11 +195,15 @@ function LibraryPage() {
                       <TableCell className="font-medium">{a.name}</TableCell>
                       <TableCell className="capitalize text-muted-foreground">{a.kind}</TableCell>
                       <TableCell className="text-muted-foreground">{a.engine ?? "—"}</TableCell>
-                      <TableCell className="tabular text-muted-foreground">{formatDuration(a.durationSeconds)}</TableCell>
+                      <TableCell className="tabular text-muted-foreground">
+                        {formatDuration(a.durationSeconds)}
+                      </TableCell>
                       <TableCell className="text-muted-foreground">
                         {songs?.find((s) => s.id === a.songId)?.title ?? "—"}
                       </TableCell>
-                      <TableCell className="text-muted-foreground">{relativeTime(a.createdAt)}</TableCell>
+                      <TableCell className="text-muted-foreground">
+                        {relativeTime(a.createdAt)}
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

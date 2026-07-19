@@ -1,4 +1,3 @@
-
 # Varynt Studio — UI Shell Plan
 
 Build a desktop-first dark workstation for AI-assisted music production. All external actions go through a typed `StudioBridge`; only a `MockStudioBridge` ships in this phase.

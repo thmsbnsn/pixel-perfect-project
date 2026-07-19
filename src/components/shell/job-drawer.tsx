@@ -193,9 +193,7 @@ function JobRow({
         </div>
       ) : null}
 
-      {job.error ? (
-        <p className="mt-2 text-[11px] text-destructive">{job.error.message}</p>
-      ) : null}
+      {job.error ? <p className="mt-2 text-[11px] text-destructive">{job.error.message}</p> : null}
 
       <div className="mt-3 flex flex-wrap items-center gap-1.5">
         <Button size="sm" variant="ghost" className="h-7 gap-1.5 px-2 text-xs" onClick={onViewLogs}>

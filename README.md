@@ -1,10 +1,11 @@
 # Varynt Studio — UI Shell
 
 A local desktop-first workstation for AI-assisted alternative metal, metalcore,
-electronic, and hip-hop production. This repository ships the **UI shell only**:
-every external action is routed through a typed adapter and a deterministic
-`MockStudioBridge`. There is no cloud, no auth, no billing, and no real model
-inference in this phase.
+electronic, and hip-hop production. This repository is a **Tauri 2 desktop
+shell**. Every external action is routed through a typed adapter. Browser
+development uses the deterministic `MockStudioBridge`; the Windows build uses
+`TauriStudioBridge` for native system checks, workspace reveals, and approved
+external-app launches. There is no cloud, auth, or billing.
 
 ## Running
 
@@ -13,7 +14,22 @@ bun install
 bun run dev
 ```
 
-The dev server binds to `localhost:8080` under the Lovable sandbox.
+The browser dev server binds to `127.0.0.1:1420` and uses mock data.
+
+Run the native desktop app:
+
+```bash
+bun run desktop:dev
+```
+
+Create the Windows executable and NSIS installer:
+
+```bash
+bun run desktop:build
+```
+
+Build output is written beneath `src-tauri/target/release/`, with the installer
+in `src-tauri/target/release/bundle/nsis/`.
 
 ## Where the bridge lives
 
@@ -27,22 +43,24 @@ The dev server binds to `localhost:8080` under the Lovable sandbox.
 - `src/bridge/seed.ts` — the seed songs, assets, jobs, voice profiles, and
   component status the mock returns.
 - `src/bridge/index.ts` — exposes the singleton `bridge`.
+- `src/bridge/TauriStudioBridge.ts` — desktop adapter for native Tauri commands.
+- `src-tauri/src/lib.rs` — allowlisted Windows filesystem and application
+  commands plus local runtime detection.
 
 ## Swapping in a real bridge
 
-1. Implement `StudioBridge` from `src/bridge/StudioBridge.ts` in a new module
-   (for example `src/bridge/LocalStudioBridge.ts`) that talks to the local
-   Python / PowerShell runners.
-2. In `src/bridge/index.ts`, replace `new MockStudioBridge()` with your
-   implementation. Nothing else in the app should need to change.
-3. Emit job progress via `subscribeJobs` so the global job drawer and
-   dashboard reflect live status.
+1. Add native, allowlisted commands for MusicGen, Stable Audio, Fish Speech,
+   and UVR to `src-tauri/src/lib.rs`.
+2. Override the corresponding `StudioBridge` methods in
+   `src/bridge/TauriStudioBridge.ts`. Nothing else in the app should need to
+   change.
+3. Emit job progress so the global job drawer and dashboard reflect live
+   status.
 
 ## What is still mocked
 
-- All generation jobs (MusicGen, Stable Audio, Fish Speech, UVR).
-- File-system reveals, REAPER launch, UVR launch (they surface actionable
-  errors).
+- Generation jobs (MusicGen, Stable Audio, Fish Speech, UVR) are not wired to
+  the native runners yet.
 - Settings persistence and imports.
 - Audio preview: synthesized WebAudio tones stand in for real files so
   playback controls are auditable end-to-end without shipping binaries.

@@ -31,10 +31,30 @@ const STRUCTURES = [
 ];
 
 const KEYS = [
-  "C major", "G major", "D major", "A major", "E major", "B major", "F# major",
-  "F major", "Bb major", "Eb major", "Ab major", "Db major",
-  "A minor", "E minor", "B minor", "F# minor", "C# minor", "G# minor",
-  "D minor", "G minor", "C minor", "F minor", "Bb minor", "Eb minor",
+  "C major",
+  "G major",
+  "D major",
+  "A major",
+  "E major",
+  "B major",
+  "F# major",
+  "F major",
+  "Bb major",
+  "Eb major",
+  "Ab major",
+  "Db major",
+  "A minor",
+  "E minor",
+  "B minor",
+  "F# minor",
+  "C# minor",
+  "G# minor",
+  "D minor",
+  "G minor",
+  "C minor",
+  "F minor",
+  "Bb minor",
+  "Eb minor",
 ];
 
 export function NewSongDialog({
@@ -65,9 +85,18 @@ export function NewSongDialog({
 
   useEffect(() => {
     if (!open) {
-      setTitle(""); setSlug(""); setSlugTouched(false); setBpm(""); setKey("");
-      setTimeSig("4/4"); setGenre(""); setMood(""); setTarget(""); setBrief("");
-      setStructure(STRUCTURES[0]); setSubmitting(false);
+      setTitle("");
+      setSlug("");
+      setSlugTouched(false);
+      setBpm("");
+      setKey("");
+      setTimeSig("4/4");
+      setGenre("");
+      setMood("");
+      setTarget("");
+      setBrief("");
+      setStructure(STRUCTURES[0]);
+      setSubmitting(false);
     }
   }, [open]);
 
@@ -85,8 +114,14 @@ export function NewSongDialog({
         bpm: bpmNum,
         key: key || undefined,
         timeSignature: timeSig,
-        genreTags: genre.split(",").map((s) => s.trim()).filter(Boolean),
-        moodTags: mood.split(",").map((s) => s.trim()).filter(Boolean),
+        genreTags: genre
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean),
+        moodTags: mood
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean),
         targetDurationSeconds: target ? Number(target) : undefined,
         creativeBrief: brief.trim(),
         structureTemplate: structure,
@@ -154,10 +189,14 @@ export function NewSongDialog({
           <div>
             <Label>Key</Label>
             <Select value={key} onValueChange={setKey}>
-              <SelectTrigger><SelectValue placeholder="Optional" /></SelectTrigger>
+              <SelectTrigger>
+                <SelectValue placeholder="Optional" />
+              </SelectTrigger>
               <SelectContent>
                 {KEYS.map((k) => (
-                  <SelectItem key={k} value={k}>{k}</SelectItem>
+                  <SelectItem key={k} value={k}>
+                    {k}
+                  </SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -166,10 +205,14 @@ export function NewSongDialog({
           <div>
             <Label>Time signature</Label>
             <Select value={timeSig} onValueChange={setTimeSig}>
-              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
               <SelectContent>
                 {["4/4", "3/4", "6/8", "7/8", "5/4", "12/8"].map((t) => (
-                  <SelectItem key={t} value={t}>{t}</SelectItem>
+                  <SelectItem key={t} value={t}>
+                    {t}
+                  </SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -207,10 +250,14 @@ export function NewSongDialog({
           <div className="sm:col-span-2">
             <Label>Structure template</Label>
             <Select value={structure} onValueChange={setStructure}>
-              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
               <SelectContent>
                 {STRUCTURES.map((s) => (
-                  <SelectItem key={s} value={s}>{s}</SelectItem>
+                  <SelectItem key={s} value={s}>
+                    {s}
+                  </SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -229,7 +276,9 @@ export function NewSongDialog({
         </div>
 
         <DialogFooter>
-          <Button variant="ghost" onClick={() => onOpenChange(false)}>Cancel</Button>
+          <Button variant="ghost" onClick={() => onOpenChange(false)}>
+            Cancel
+          </Button>
           <Button onClick={submit} disabled={!canSubmit}>
             {submitting ? "Creating…" : "Create song"}
           </Button>

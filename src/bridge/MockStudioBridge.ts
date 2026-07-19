@@ -146,14 +146,10 @@ export class MockStudioBridge implements StudioBridge {
     if (filters?.search) {
       const q = filters.search.toLowerCase();
       list = list.filter(
-        (a) =>
-          a.name.toLowerCase().includes(q) ||
-          (a.prompt ?? "").toLowerCase().includes(q),
+        (a) => a.name.toLowerCase().includes(q) || (a.prompt ?? "").toLowerCase().includes(q),
       );
     }
-    return list
-      .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
-      .map((a) => ({ ...a }));
+    return list.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1)).map((a) => ({ ...a }));
   }
   async getAsset(id: string) {
     await delay(80);
@@ -369,9 +365,7 @@ export class MockStudioBridge implements StudioBridge {
       stageLabel: "Queued",
       outputAssetIds: [],
       createdAt: nowIso(),
-      logs: [
-        `[queue] created (${spec.engine}, ${spec.device.toUpperCase()}).`,
-      ],
+      logs: [`[queue] created (${spec.engine}, ${spec.device.toUpperCase()}).`],
     };
     this.jobs.set(id, job);
     this.emit({ kind: "created", job });

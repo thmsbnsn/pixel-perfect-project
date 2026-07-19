@@ -26,8 +26,12 @@ function publish() {
 function ensureCtx(): AudioContext {
   if (!ctx) {
     const AC =
-      (window as unknown as { AudioContext?: typeof AudioContext; webkitAudioContext?: typeof AudioContext })
-        .AudioContext ??
+      (
+        window as unknown as {
+          AudioContext?: typeof AudioContext;
+          webkitAudioContext?: typeof AudioContext;
+        }
+      ).AudioContext ??
       (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
     if (!AC) throw new Error("WebAudio unavailable");
     ctx = new AC();
@@ -46,7 +50,8 @@ function buildBuffer(seed: number, durationSec: number): AudioBuffer {
   for (let i = 0; i < len; i++) {
     const t = i / sr;
     const env =
-      Math.min(1, t / 0.05) * Math.min(1, (durationSec - t) / 0.2) *
+      Math.min(1, t / 0.05) *
+      Math.min(1, (durationSec - t) / 0.2) *
       (0.5 + 0.5 * Math.sin(t * 0.5));
     const v =
       Math.sin(2 * Math.PI * base * t) * 0.35 +

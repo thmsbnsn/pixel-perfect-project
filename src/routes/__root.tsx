@@ -1,14 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import {
-  Outlet,
-  createRootRouteWithContext,
-  useRouter,
-  HeadContent,
-  Scripts,
-} from "@tanstack/react-router";
-import { useEffect, useState, type ReactNode } from "react";
+import { Outlet, createRootRouteWithContext, useRouter } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 
-import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/shell/app-sidebar";
@@ -29,7 +22,9 @@ function NotFoundComponent() {
         <p className="mt-2 text-sm text-muted-foreground">
           Check the sidebar navigation or return to the dashboard.
         </p>
-        <Button asChild className="mt-6"><a href="/">Back to dashboard</a></Button>
+        <Button asChild className="mt-6">
+          <a href="/">Back to dashboard</a>
+        </Button>
       </div>
     </div>
   );
@@ -51,8 +46,17 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
           The interface bumped into an unexpected condition. Retry, or return to the dashboard.
         </p>
         <div className="mt-6 flex justify-center gap-2">
-          <Button onClick={() => { router.invalidate(); reset(); }}>Try again</Button>
-          <Button variant="outline" asChild><a href="/">Dashboard</a></Button>
+          <Button
+            onClick={() => {
+              router.invalidate();
+              reset();
+            }}
+          >
+            Try again
+          </Button>
+          <Button variant="outline" asChild>
+            <a href="/">Dashboard</a>
+          </Button>
         </div>
       </div>
     </div>
@@ -83,12 +87,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:title", content: "Varynt Studio" },
       {
         name: "twitter:description",
-        content:
-          "Local AI music workstation. MusicGen, Stable Audio, Fish Speech, UVR, REAPER.",
+        content: "Local AI music workstation. MusicGen, Stable Audio, Fish Speech, UVR, REAPER.",
       },
     ],
     links: [
-      { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
@@ -98,25 +100,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
     ],
   }),
-  shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
 });
-
-function RootShell({ children }: { children: ReactNode }) {
-  return (
-    <html lang="en" className="dark">
-      <head>
-        <HeadContent />
-      </head>
-      <body className="bg-background text-foreground">
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  );
-}
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();

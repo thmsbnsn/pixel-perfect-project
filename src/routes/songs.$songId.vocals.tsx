@@ -19,13 +19,19 @@ function VocalsTab() {
         icon={<Mic2 className="h-5 w-5" />}
         title="No guide vocals yet"
         description="Generate a random or reference-conditioned guide vocal with Fish Speech 1.5."
-        action={<Button asChild><Link to="/vocals">Open Vocals</Link></Button>}
+        action={
+          <Button asChild>
+            <Link to="/vocals">Open Vocals</Link>
+          </Button>
+        }
       />
     );
   }
   return (
     <div className="grid gap-3 lg:grid-cols-2">
-      {vocals.map((a) => <AudioAssetCard key={a.id} asset={a} />)}
+      {vocals.map((a) => (
+        <AudioAssetCard key={a.id} asset={a} />
+      ))}
     </div>
   );
 }

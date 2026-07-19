@@ -7,7 +7,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { useAssets, useSongs } from "@/hooks/use-bridge";
 import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import { AudioAssetCard } from "@/components/audio/audio-asset-card";
 import { Waves, Rocket } from "lucide-react";
@@ -48,14 +52,22 @@ function MixReviewPage() {
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight text-foreground">Mix Review</h1>
-          <p className="mt-1 text-sm text-muted-foreground">A/B compare mix revisions with timestamped notes.</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            A/B compare mix revisions with timestamped notes.
+          </p>
         </div>
         <div className="flex items-center gap-2">
           <Label className="text-xs text-muted-foreground">Song</Label>
           <Select value={songId} onValueChange={setSongId}>
-            <SelectTrigger className="h-9 w-56"><SelectValue /></SelectTrigger>
+            <SelectTrigger className="h-9 w-56">
+              <SelectValue />
+            </SelectTrigger>
             <SelectContent>
-              {(songs ?? []).map((s) => (<SelectItem key={s.id} value={s.id}>{s.title}</SelectItem>))}
+              {(songs ?? []).map((s) => (
+                <SelectItem key={s.id} value={s.id}>
+                  {s.title}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
@@ -71,18 +83,8 @@ function MixReviewPage() {
         <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
           <div className="space-y-4">
             <div className="grid gap-3 md:grid-cols-2">
-              <MixSlot
-                label="A"
-                value={a?.id ?? ""}
-                mixes={mixes}
-                onChange={setAId}
-              />
-              <MixSlot
-                label="B"
-                value={b?.id ?? ""}
-                mixes={mixes}
-                onChange={setBId}
-              />
+              <MixSlot label="A" value={a?.id ?? ""} mixes={mixes} onChange={setAId} />
+              <MixSlot label="B" value={b?.id ?? ""} mixes={mixes} onChange={setBId} />
             </div>
 
             <Panel className="p-5">
@@ -92,7 +94,11 @@ function MixReviewPage() {
                 actions={
                   <label className="flex items-center gap-2 text-xs text-muted-foreground">
                     Loudness match
-                    <Switch checked={loudnessMatch} onCheckedChange={setLoudnessMatch} aria-label="Loudness match toggle" />
+                    <Switch
+                      checked={loudnessMatch}
+                      onCheckedChange={setLoudnessMatch}
+                      aria-label="Loudness match toggle"
+                    />
                   </label>
                 }
               />
@@ -104,20 +110,25 @@ function MixReviewPage() {
               <div className="mt-4 flex flex-wrap items-center gap-3">
                 <Button
                   variant={playingId === a?.id ? "default" : "secondary"}
-                  onClick={() => a && toggle(a.id, { seed: a.seed, durationSec: a.durationSeconds })}
+                  onClick={() =>
+                    a && toggle(a.id, { seed: a.seed, durationSec: a.durationSeconds })
+                  }
                   disabled={!a}
                 >
                   {playingId === a?.id ? "Pause A" : "Play A"}
                 </Button>
                 <Button
                   variant={playingId === b?.id ? "default" : "secondary"}
-                  onClick={() => b && toggle(b.id, { seed: b.seed, durationSec: b.durationSeconds })}
+                  onClick={() =>
+                    b && toggle(b.id, { seed: b.seed, durationSec: b.durationSeconds })
+                  }
                   disabled={!b}
                 >
                   {playingId === b?.id ? "Pause B" : "Play B"}
                 </Button>
                 <span className="tabular text-xs text-muted-foreground">
-                  {formatDuration(positionSec)} / {formatDuration(durationSec || a?.durationSeconds || b?.durationSeconds)}
+                  {formatDuration(positionSec)} /{" "}
+                  {formatDuration(durationSec || a?.durationSeconds || b?.durationSeconds)}
                 </span>
               </div>
               <Progress
@@ -138,7 +149,9 @@ function MixReviewPage() {
               <div>
                 <Label>Status</Label>
                 <Select value={status} onValueChange={(v) => setStatus(v as Status)}>
-                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="draft">Draft</SelectItem>
                     <SelectItem value="changes">Needs changes</SelectItem>
@@ -156,7 +169,9 @@ function MixReviewPage() {
                 />
               </div>
               <div className="flex justify-between gap-2">
-                <Button variant="outline" onClick={() => toast.success("Review saved (mock)")}>Save review</Button>
+                <Button variant="outline" onClick={() => toast.success("Review saved (mock)")}>
+                  Save review
+                </Button>
                 <Button
                   className="gap-2"
                   disabled={status !== "approved"}
@@ -177,7 +192,10 @@ function MixReviewPage() {
 }
 
 function MixSlot({
-  label, value, mixes, onChange,
+  label,
+  value,
+  mixes,
+  onChange,
 }: {
   label: string;
   value: string;
@@ -187,13 +205,21 @@ function MixSlot({
   return (
     <Panel className="p-4">
       <div className="mb-2 flex items-center gap-2">
-        <span className="grid h-6 w-6 place-items-center rounded bg-primary/20 text-xs font-bold text-primary">{label}</span>
+        <span className="grid h-6 w-6 place-items-center rounded bg-primary/20 text-xs font-bold text-primary">
+          {label}
+        </span>
         <span className="text-xs uppercase tracking-wider text-muted-foreground">Mix {label}</span>
       </div>
       <Select value={value} onValueChange={onChange}>
-        <SelectTrigger><SelectValue placeholder="Pick a mix" /></SelectTrigger>
+        <SelectTrigger>
+          <SelectValue placeholder="Pick a mix" />
+        </SelectTrigger>
         <SelectContent>
-          {mixes.map((m) => (<SelectItem key={m.id} value={m.id}>{m.name}</SelectItem>))}
+          {mixes.map((m) => (
+            <SelectItem key={m.id} value={m.id}>
+              {m.name}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
     </Panel>

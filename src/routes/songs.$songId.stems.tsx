@@ -19,13 +19,19 @@ function StemsTab() {
         icon={<Layers className="h-5 w-5" />}
         title="No stems yet"
         description="Send an approved generation to UVR to produce vocals, drums, bass, and other stems."
-        action={<Button asChild><Link to="/stems">Open Stems</Link></Button>}
+        action={
+          <Button asChild>
+            <Link to="/stems">Open Stems</Link>
+          </Button>
+        }
       />
     );
   }
   return (
     <div className="grid gap-3 lg:grid-cols-2">
-      {stems.map((a) => <AudioAssetCard key={a.id} asset={a} />)}
+      {stems.map((a) => (
+        <AudioAssetCard key={a.id} asset={a} />
+      ))}
     </div>
   );
 }

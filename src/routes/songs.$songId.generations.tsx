@@ -20,13 +20,19 @@ function GenerationsTab() {
         icon={<Wand2 className="h-5 w-5" />}
         title="No generations yet"
         description="Queue a MusicGen or Stable Audio job to build up ideas for this song."
-        action={<Button asChild><Link to="/generate">Open Generate</Link></Button>}
+        action={
+          <Button asChild>
+            <Link to="/generate">Open Generate</Link>
+          </Button>
+        }
       />
     );
   }
   return (
     <div className="grid gap-3 lg:grid-cols-2">
-      {gens.map((a) => <AudioAssetCard key={a.id} asset={a} />)}
+      {gens.map((a) => (
+        <AudioAssetCard key={a.id} asset={a} />
+      ))}
     </div>
   );
 }

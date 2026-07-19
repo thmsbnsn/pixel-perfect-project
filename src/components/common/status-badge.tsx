@@ -50,22 +50,13 @@ export function ComponentStateBadge({
         className,
       )}
     >
-      <span
-        aria-hidden
-        className="h-1.5 w-1.5 rounded-full bg-current"
-      />
+      <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-current" />
       {componentStateLabels[state]}
     </span>
   );
 }
 
-export function JobStatusBadge({
-  status,
-  className,
-}: {
-  status: JobStatus;
-  className?: string;
-}) {
+export function JobStatusBadge({ status, className }: { status: JobStatus; className?: string }) {
   return (
     <span
       className={cn(

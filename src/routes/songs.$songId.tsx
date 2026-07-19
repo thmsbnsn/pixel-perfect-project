@@ -10,7 +10,10 @@ import { cn } from "@/lib/utils";
 import { bridge } from "@/bridge";
 import { toast } from "sonner";
 import {
-  DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
 export const Route = createFileRoute("/songs/$songId")({
@@ -24,9 +27,16 @@ export const Route = createFileRoute("/songs/$songId")({
 });
 
 const STAGE_LABELS: Record<SongStage, string> = {
-  brief: "Brief", generating: "Generating", selecting: "Selecting", stems: "Stems",
-  arranging: "Arranging", vocals: "Vocals", mixing: "Mixing", mastering: "Mastering",
-  complete: "Complete", archived: "Archived",
+  brief: "Brief",
+  generating: "Generating",
+  selecting: "Selecting",
+  stems: "Stems",
+  arranging: "Arranging",
+  vocals: "Vocals",
+  mixing: "Mixing",
+  mastering: "Mastering",
+  complete: "Complete",
+  archived: "Archived",
 };
 
 const TABS: { to: string; label: string; exact?: boolean }[] = [
@@ -47,9 +57,10 @@ function SongWorkspace() {
   const pathname = useRouterState({ select: (r) => r.location.pathname });
 
   const base = `/songs/${songId}`;
-  const currentTab = pathname === base || pathname === `${base}/`
-    ? ""
-    : pathname.replace(`${base}/`, "").split("/")[0];
+  const currentTab =
+    pathname === base || pathname === `${base}/`
+      ? ""
+      : pathname.replace(`${base}/`, "").split("/")[0];
 
   if (isLoading) {
     return (
@@ -66,7 +77,11 @@ function SongWorkspace() {
         <ErrorState
           title="This song could not be loaded"
           description="It may have been archived or the local bridge is unreachable."
-          action={<Button size="sm" variant="outline" onClick={() => refetch()}>Retry</Button>}
+          action={
+            <Button size="sm" variant="outline" onClick={() => refetch()}>
+              Retry
+            </Button>
+          }
         />
       </div>
     );
@@ -80,8 +95,12 @@ function SongWorkspace() {
             <p className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
               {STAGE_LABELS[song.stage]} · updated {relativeTime(song.updatedAt)}
             </p>
-            <h1 className="mt-1 text-2xl font-semibold tracking-tight text-foreground">{song.title}</h1>
-            <p className="mt-1 truncate font-mono text-xs text-muted-foreground">{song.folderPath}</p>
+            <h1 className="mt-1 text-2xl font-semibold tracking-tight text-foreground">
+              {song.title}
+            </h1>
+            <p className="mt-1 truncate font-mono text-xs text-muted-foreground">
+              {song.folderPath}
+            </p>
             <div className="mt-3 flex flex-wrap gap-2 text-xs text-muted-foreground tabular">
               <Meta label="BPM" value={song.bpm?.toString() ?? "—"} />
               <Meta label="Key" value={song.key ?? "—"} />
@@ -94,25 +113,40 @@ function SongWorkspace() {
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <Button size="sm" variant="outline" asChild>
-              <Link to="/generate" search={{}} className="gap-2"><Wand2 className="h-4 w-4" /> Generate</Link>
+              <Link to="/generate" search={{}} className="gap-2">
+                <Wand2 className="h-4 w-4" /> Generate
+              </Link>
             </Button>
             <Button
-              size="sm" variant="outline" className="gap-2"
-              onClick={() => toast("Import is a bridge action", { description: "Native file picker requires the local bridge." })}
+              size="sm"
+              variant="outline"
+              className="gap-2"
+              onClick={() =>
+                toast("Import is a bridge action", {
+                  description: "Native file picker requires the local bridge.",
+                })
+              }
             >
               <Upload className="h-4 w-4" /> Import audio
             </Button>
             <Button
-              size="sm" variant="outline" className="gap-2"
-              onClick={() => bridge.revealPath(song.folderPath).then(() => toast.success("Reveal requested"))}
+              size="sm"
+              variant="outline"
+              className="gap-2"
+              onClick={() =>
+                bridge.revealPath(song.folderPath).then(() => toast.success("Reveal requested"))
+              }
             >
               <FolderOpen className="h-4 w-4" /> Reveal folder
             </Button>
             <Button
-              size="sm" className="gap-2"
+              size="sm"
+              className="gap-2"
               onClick={() =>
                 bridge.openReaper(song.id).catch((e: Error) =>
-                  toast.error(e.message, { description: "Configure the REAPER path in Settings." }),
+                  toast.error(e.message, {
+                    description: "Configure the REAPER path in Settings.",
+                  }),
                 )
               }
             >
@@ -128,7 +162,9 @@ function SongWorkspace() {
                 <DropdownMenuItem onClick={() => toast("Duplicate is a bridge action")}>
                   Duplicate from template
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild><Link to="/songs">All songs</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/songs">All songs</Link>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
@@ -145,7 +181,9 @@ function SongWorkspace() {
               to={to}
               className={cn(
                 "whitespace-nowrap rounded-md px-3 py-1.5 text-sm transition-colors",
-                active ? "bg-surface-3 font-medium text-foreground" : "text-muted-foreground hover:text-foreground",
+                active
+                  ? "bg-surface-3 font-medium text-foreground"
+                  : "text-muted-foreground hover:text-foreground",
               )}
             >
               {t.label}
@@ -164,7 +202,9 @@ function SongWorkspace() {
 function Meta({ label, value }: { label: string; value: string }) {
   return (
     <span className="rounded border border-border bg-surface-2 px-2 py-0.5">
-      <span className="mr-1 text-[10px] uppercase tracking-wider text-muted-foreground/80">{label}</span>
+      <span className="mr-1 text-[10px] uppercase tracking-wider text-muted-foreground/80">
+        {label}
+      </span>
       <span className="font-medium text-foreground">{value}</span>
     </span>
   );

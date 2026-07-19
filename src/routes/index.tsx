@@ -62,22 +62,26 @@ function Dashboard() {
     <div className="mx-auto max-w-[1600px] space-y-6 px-6 py-6">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight text-foreground">
-            Studio overview
-          </h1>
+          <h1 className="text-2xl font-semibold tracking-tight text-foreground">Studio overview</h1>
           <p className="mt-1 text-sm text-muted-foreground">
             Working queue, recent output, and system readiness.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
           <Button size="sm" variant="outline" asChild>
-            <Link to="/generate" className="gap-2"><Wand2 className="h-4 w-4" /> Generate</Link>
+            <Link to="/generate" className="gap-2">
+              <Wand2 className="h-4 w-4" /> Generate
+            </Link>
           </Button>
           <Button size="sm" variant="outline" asChild>
-            <Link to="/vocals" className="gap-2"><Mic2 className="h-4 w-4" /> Voice guide</Link>
+            <Link to="/vocals" className="gap-2">
+              <Mic2 className="h-4 w-4" /> Voice guide
+            </Link>
           </Button>
           <Button size="sm" variant="outline" asChild>
-            <Link to="/stems" className="gap-2"><Layers className="h-4 w-4" /> Separate stems</Link>
+            <Link to="/stems" className="gap-2">
+              <Layers className="h-4 w-4" /> Separate stems
+            </Link>
           </Button>
           <Button size="sm" onClick={() => setNewOpen(true)} className="gap-2">
             <Music2 className="h-4 w-4" /> New song
@@ -99,7 +103,9 @@ function Dashboard() {
           <Panel className="p-5">
             <PanelHeader
               title="Continue working"
-              description={current ? `${current.title} · ${STAGE_LABELS[current.stage]}` : undefined}
+              description={
+                current ? `${current.title} · ${STAGE_LABELS[current.stage]}` : undefined
+              }
               actions={
                 current ? (
                   <Button size="sm" asChild>
@@ -141,7 +147,9 @@ function Dashboard() {
                 activeJobs.slice(0, 4).map((j) => (
                   <div key={j.id} className="rounded-md border border-border bg-surface-2 p-3">
                     <div className="flex items-center justify-between gap-2">
-                      <p className="min-w-0 truncate text-sm font-medium text-foreground">{j.title}</p>
+                      <p className="min-w-0 truncate text-sm font-medium text-foreground">
+                        {j.title}
+                      </p>
                       <JobStatusBadge status={j.status} />
                     </div>
                     <p className="mt-0.5 text-[11px] text-muted-foreground">
@@ -164,7 +172,9 @@ function Dashboard() {
             title="Recent songs"
             actions={
               <Button variant="ghost" size="sm" asChild>
-                <Link to="/songs" className="gap-1 text-xs">All songs <ArrowRight className="h-3.5 w-3.5" /></Link>
+                <Link to="/songs" className="gap-1 text-xs">
+                  All songs <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
               </Button>
             }
           />
@@ -182,7 +192,8 @@ function Dashboard() {
                       {s.title}
                     </p>
                     <p className="text-[11px] text-muted-foreground">
-                      {s.bpm ? `${s.bpm} BPM · ` : ""}{s.key ?? "no key"} · {relativeTime(s.updatedAt)}
+                      {s.bpm ? `${s.bpm} BPM · ` : ""}
+                      {s.key ?? "no key"} · {relativeTime(s.updatedAt)}
                     </p>
                   </div>
                   <span className="rounded border border-border bg-surface-1 px-1.5 py-0.5 text-[10px] uppercase tracking-wider text-muted-foreground">
@@ -204,7 +215,10 @@ function Dashboard() {
           <PanelHeader title="Pipeline" description="Assets by stage" />
           <ul className="mt-4 space-y-2 text-sm">
             {Object.entries(stageCounts).map(([stage, count]) => (
-              <li key={stage} className="flex items-center justify-between rounded-md border border-border bg-surface-2 px-3 py-2">
+              <li
+                key={stage}
+                className="flex items-center justify-between rounded-md border border-border bg-surface-2 px-3 py-2"
+              >
                 <span className="text-foreground">{stage}</span>
                 <span className="tabular text-muted-foreground">{count}</span>
               </li>
@@ -220,7 +234,9 @@ function Dashboard() {
             description="Latest generated audio across engines"
             actions={
               <Button variant="ghost" size="sm" asChild>
-                <Link to="/library" className="gap-1 text-xs">Library <ArrowRight className="h-3.5 w-3.5" /></Link>
+                <Link to="/library" className="gap-1 text-xs">
+                  Library <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
               </Button>
             }
           />
@@ -242,7 +258,9 @@ function Dashboard() {
             title="System readiness"
             actions={
               <Button variant="ghost" size="sm" asChild>
-                <Link to="/system" className="gap-1 text-xs">Details <ArrowRight className="h-3.5 w-3.5" /></Link>
+                <Link to="/system" className="gap-1 text-xs">
+                  Details <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
               </Button>
             }
           />

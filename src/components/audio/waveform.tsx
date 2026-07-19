@@ -32,11 +32,7 @@ export function Waveform({
             key={i}
             className={cn(
               "flex-1 rounded-[1px] transition-colors",
-              done && active
-                ? "bg-audio"
-                : done
-                  ? "bg-primary/80"
-                  : "bg-foreground/25",
+              done && active ? "bg-audio" : done ? "bg-primary/80" : "bg-foreground/25",
             )}
             style={{ height: `${Math.round(v * 100)}%` }}
           />

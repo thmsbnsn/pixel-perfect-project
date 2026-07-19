@@ -25,9 +25,7 @@ function SystemPage() {
   const { data: status, isLoading, refetch } = useSystemStatus();
   const qc = useQueryClient();
   const jobs = useJobs();
-  const diagnostics = jobs.flatMap((j) =>
-    j.logs.map((l) => `[${j.engine}] ${j.title} — ${l}`),
-  );
+  const diagnostics = jobs.flatMap((j) => j.logs.map((l) => `[${j.engine}] ${j.title} — ${l}`));
 
   const refresh = async () => {
     await bridge.refreshSystemStatus();
@@ -36,7 +34,9 @@ function SystemPage() {
   };
 
   const copyLog = () => {
-    navigator.clipboard.writeText(diagnostics.join("\n")).then(() => toast.success("Diagnostics copied"));
+    navigator.clipboard
+      .writeText(diagnostics.join("\n"))
+      .then(() => toast.success("Diagnostics copied"));
   };
   const exportLog = () => {
     const blob = new Blob([diagnostics.join("\n")], { type: "text/plain" });
@@ -54,10 +54,17 @@ function SystemPage() {
         <div>
           <h1 className="text-2xl font-semibold tracking-tight text-foreground">System</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Local component status. Distinguishes installed, available, busy, unavailable, and unverified.
+            Local component status. Distinguishes installed, available, busy, unavailable, and
+            unverified.
           </p>
         </div>
-        <Button variant="outline" size="sm" className="gap-2" onClick={refresh} disabled={isLoading}>
+        <Button
+          variant="outline"
+          size="sm"
+          className="gap-2"
+          onClick={refresh}
+          disabled={isLoading}
+        >
           <RefreshCw className="h-4 w-4" /> Re-verify
         </Button>
       </header>
@@ -74,12 +81,12 @@ function SystemPage() {
               </div>
               <ComponentStateBadge state={s.state} />
             </div>
-            {s.message ? (
-              <p className="mt-3 text-xs text-muted-foreground">{s.message}</p>
-            ) : null}
+            {s.message ? <p className="mt-3 text-xs text-muted-foreground">{s.message}</p> : null}
             <div className="mt-3 flex items-center justify-between text-[11px] text-muted-foreground">
               <span>{s.device ? s.device.toUpperCase() : "—"}</span>
-              <span>{s.lastCheckedAt ? `Checked ${relativeTime(s.lastCheckedAt)}` : "Not checked"}</span>
+              <span>
+                {s.lastCheckedAt ? `Checked ${relativeTime(s.lastCheckedAt)}` : "Not checked"}
+              </span>
             </div>
           </Panel>
         ))}

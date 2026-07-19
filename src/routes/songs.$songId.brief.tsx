@@ -43,8 +43,14 @@ function BriefTab() {
         creativeBrief: brief,
         bpm: bpm ? Number(bpm) : undefined,
         key: key || undefined,
-        genreTags: genre.split(",").map((s) => s.trim()).filter(Boolean),
-        moodTags: mood.split(",").map((s) => s.trim()).filter(Boolean),
+        genreTags: genre
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean),
+        moodTags: mood
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean),
       });
       qc.invalidateQueries({ queryKey: ["songs"] });
       toast.success("Brief updated");
@@ -57,7 +63,10 @@ function BriefTab() {
 
   return (
     <Panel className="p-5">
-      <PanelHeader title="Creative brief" description="Reference sound, energy, and structural intent." />
+      <PanelHeader
+        title="Creative brief"
+        description="Reference sound, energy, and structural intent."
+      />
       <div className="mt-4 grid gap-4 lg:grid-cols-2">
         <div className="lg:col-span-2">
           <Label>Brief</Label>
@@ -73,15 +82,25 @@ function BriefTab() {
         </div>
         <div>
           <Label>Genre tags</Label>
-          <Input value={genre} onChange={(e) => setGenre(e.target.value)} placeholder="comma separated" />
+          <Input
+            value={genre}
+            onChange={(e) => setGenre(e.target.value)}
+            placeholder="comma separated"
+          />
         </div>
         <div>
           <Label>Mood tags</Label>
-          <Input value={mood} onChange={(e) => setMood(e.target.value)} placeholder="comma separated" />
+          <Input
+            value={mood}
+            onChange={(e) => setMood(e.target.value)}
+            placeholder="comma separated"
+          />
         </div>
       </div>
       <div className="mt-4 flex justify-end">
-        <Button onClick={save} disabled={saving}>{saving ? "Saving…" : "Save changes"}</Button>
+        <Button onClick={save} disabled={saving}>
+          {saving ? "Saving…" : "Save changes"}
+        </Button>
       </div>
     </Panel>
   );

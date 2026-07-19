@@ -1,10 +1,4 @@
-import type {
-  AudioAsset,
-  ComponentStatus,
-  SongProject,
-  StudioJob,
-  VoiceProfile,
-} from "./types";
+import type { AudioAsset, ComponentStatus, SongProject, StudioJob, VoiceProfile } from "./types";
 
 // Deterministic tiny pseudo-random for waveform peaks
 function peaks(seed: number, count = 96): number[] {
@@ -36,8 +30,7 @@ export const SEED_SONGS: SongProject[] = [
     moodTags: ["driving", "cinematic"],
     creativeBrief:
       "Cinematic metalcore opener. Verse pushes tight muted riffs against sparse synth pads, chorus opens to a wall of layered guitars and half-time drums.",
-    structureTemplate:
-      "Intro / Verse / Chorus / Verse / Chorus / Breakdown / Final Chorus / Outro",
+    structureTemplate: "Intro / Verse / Chorus / Verse / Chorus / Breakdown / Final Chorus / Outro",
     targetDurationSeconds: 220,
     folderPath: "D:\\Varynt\\Projects\\iron-halcyon",
     createdAt: iso(60 * 24 * 9),
@@ -355,8 +348,7 @@ export const SEED_VOICE_PROFILES: VoiceProfile[] = [
     id: "vp_guide_male_1",
     name: "Guide — Male, warm mid-range",
     referenceAssetId: "asset_ref_1",
-    exactTranscript:
-      "This is a consented voice reference used for guide vocals in Varynt Studio.",
+    exactTranscript: "This is a consented voice reference used for guide vocals in Varynt Studio.",
     consentConfirmed: true,
     createdAt: iso(60 * 24 * 5),
   },

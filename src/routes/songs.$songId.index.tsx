@@ -10,7 +10,15 @@ export const Route = createFileRoute("/songs/$songId/")({
   component: Overview,
 });
 
-type StageKey = "brief" | "generate" | "select" | "separate" | "arrange" | "vocals" | "mix" | "master";
+type StageKey =
+  | "brief"
+  | "generate"
+  | "select"
+  | "separate"
+  | "arrange"
+  | "vocals"
+  | "mix"
+  | "master";
 
 function Overview() {
   const { songId } = Route.useParams();
@@ -50,7 +58,11 @@ function Overview() {
                 <div className="flex items-center justify-between gap-2">
                   <p className="text-sm font-medium text-foreground">{s.label}</p>
                   <span className="text-[11px] uppercase tracking-wider text-muted-foreground">
-                    {s.state === "done" ? "Done" : s.state === "active" ? "In progress" : "Not started"}
+                    {s.state === "done"
+                      ? "Done"
+                      : s.state === "active"
+                        ? "In progress"
+                        : "Not started"}
                   </span>
                 </div>
                 <p className="mt-0.5 text-xs text-muted-foreground">{s.description}</p>
@@ -67,19 +79,29 @@ function Overview() {
         <PanelHeader title="Quick jump" />
         <div className="mt-4 grid gap-2">
           <Button variant="outline" size="sm" asChild className="justify-start">
-            <Link to="/songs/$songId/generations" params={{ songId }}>Generations ({song.counts.generations})</Link>
+            <Link to="/songs/$songId/generations" params={{ songId }}>
+              Generations ({song.counts.generations})
+            </Link>
           </Button>
           <Button variant="outline" size="sm" asChild className="justify-start">
-            <Link to="/songs/$songId/stems" params={{ songId }}>Stems ({song.counts.stems})</Link>
+            <Link to="/songs/$songId/stems" params={{ songId }}>
+              Stems ({song.counts.stems})
+            </Link>
           </Button>
           <Button variant="outline" size="sm" asChild className="justify-start">
-            <Link to="/songs/$songId/vocals" params={{ songId }}>Vocals ({song.counts.vocals})</Link>
+            <Link to="/songs/$songId/vocals" params={{ songId }}>
+              Vocals ({song.counts.vocals})
+            </Link>
           </Button>
           <Button variant="outline" size="sm" asChild className="justify-start">
-            <Link to="/songs/$songId/mixes" params={{ songId }}>Mixes ({song.counts.mixes})</Link>
+            <Link to="/songs/$songId/mixes" params={{ songId }}>
+              Mixes ({song.counts.mixes})
+            </Link>
           </Button>
           <Button variant="outline" size="sm" asChild className="justify-start">
-            <Link to="/songs/$songId/masters" params={{ songId }}>Masters ({song.counts.masters})</Link>
+            <Link to="/songs/$songId/masters" params={{ songId }}>
+              Masters ({song.counts.masters})
+            </Link>
           </Button>
         </div>
       </Panel>
@@ -98,50 +120,62 @@ function computeStages(song: SongProject, assets: { kind: string; favorite: bool
     state: "done" | "active" | "todo";
   }[] = [
     {
-      key: "brief", label: "Brief",
+      key: "brief",
+      label: "Brief",
       description: "Working title, BPM, key, mood, and creative brief captured.",
       nextAction: "Refine the brief in the Brief tab.",
       state: song.creativeBrief ? "done" : "active",
     },
     {
-      key: "generate", label: "Generate",
+      key: "generate",
+      label: "Generate",
       description: "Instrumental ideas rendered with MusicGen or Stable Audio.",
       nextAction: "Queue a MusicGen bed from Generate.",
       state: has("generation") ? "done" : song.creativeBrief ? "active" : "todo",
     },
     {
-      key: "select", label: "Select",
+      key: "select",
+      label: "Select",
       description: "Favorite the takes that will move forward.",
       nextAction: "Mark generations as favorites.",
       state: hasFav ? "done" : has("generation") ? "active" : "todo",
     },
     {
-      key: "separate", label: "Separate",
+      key: "separate",
+      label: "Separate",
       description: "Split approved audio into stems with UVR.",
       nextAction: "Send a favorite generation to Stems.",
       state: has("stem") ? "done" : hasFav ? "active" : "todo",
     },
     {
-      key: "arrange", label: "Arrange",
+      key: "arrange",
+      label: "Arrange",
       description: "Import stems into REAPER and lay out the song.",
       nextAction: "Open in REAPER once its path is configured.",
-      state: song.stage === "arranging" || song.stage === "vocals" || song.stage === "mixing"
-        ? "active" : song.stage === "mastering" || song.stage === "complete" ? "done" : "todo",
+      state:
+        song.stage === "arranging" || song.stage === "vocals" || song.stage === "mixing"
+          ? "active"
+          : song.stage === "mastering" || song.stage === "complete"
+            ? "done"
+            : "todo",
     },
     {
-      key: "vocals", label: "Vocals",
+      key: "vocals",
+      label: "Vocals",
       description: "Fish Speech guide vocals and reference-conditioned takes.",
       nextAction: "Generate a guide vocal from Vocals.",
       state: has("vocal") ? "done" : "todo",
     },
     {
-      key: "mix", label: "Mix",
+      key: "mix",
+      label: "Mix",
       description: "Iterate on rough mixes and compare versions in Mix Review.",
       nextAction: "Open Mix Review to A/B two versions.",
       state: has("mix") ? (song.stage === "mixing" ? "active" : "done") : "todo",
     },
     {
-      key: "master", label: "Master",
+      key: "master",
+      label: "Master",
       description: "Prepare masters and confirm release readiness.",
       nextAction: "Promote an approved mix toward mastering.",
       state: has("master") ? "done" : song.stage === "mastering" ? "active" : "todo",

@@ -2,6 +2,7 @@ node_modules
 dist
 .output
 .vinxi
+src-tauri/target
 pnpm-lock.yaml
 package-lock.json
 bun.lock

@@ -11,13 +11,7 @@ export function Panel({
   padded?: boolean;
 }) {
   return (
-    <div
-      className={cn(
-        "rounded-lg border border-border bg-surface-1",
-        padded && "p-4",
-        className,
-      )}
-    >
+    <div className={cn("rounded-lg border border-border bg-surface-1", padded && "p-4", className)}>
       {children}
     </div>
   );
@@ -38,9 +32,7 @@ export function PanelHeader({
     <div className={cn("flex items-start justify-between gap-4", className)}>
       <div>
         <h3 className="text-sm font-semibold tracking-tight text-foreground">{title}</h3>
-        {description ? (
-          <p className="mt-1 text-xs text-muted-foreground">{description}</p>
-        ) : null}
+        {description ? <p className="mt-1 text-xs text-muted-foreground">{description}</p> : null}
       </div>
       {actions ? <div className="flex items-center gap-2">{actions}</div> : null}
     </div>
@@ -102,9 +94,7 @@ export function ErrorState({
     >
       <div>
         <p className="text-sm font-medium text-destructive">{title}</p>
-        {description ? (
-          <p className="mt-1 text-xs text-destructive/80">{description}</p>
-        ) : null}
+        {description ? <p className="mt-1 text-xs text-destructive/80">{description}</p> : null}
       </div>
       {action}
     </div>

@@ -4,7 +4,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
@@ -39,7 +43,10 @@ function SettingsPage() {
         <PanelHeader title="Workspace" description="Where projects and outputs live on disk." />
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           <Field label="Workspace root" defaultValue="D:\\Varynt" />
-          <Field label="Default song template" defaultValue="Intro / Verse / Chorus / Verse / Chorus / Breakdown / Final Chorus / Outro" />
+          <Field
+            label="Default song template"
+            defaultValue="Intro / Verse / Chorus / Verse / Chorus / Breakdown / Final Chorus / Outro"
+          />
           <Field label="Generations folder" defaultValue="{song}\\generations" />
           <Field label="Stems folder" defaultValue="{song}\\stems" />
           <Field label="Vocals folder" defaultValue="{song}\\vocals" />
@@ -54,7 +61,9 @@ function SettingsPage() {
           <div>
             <Label>Default MusicGen model</Label>
             <Select defaultValue="small">
-              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
               <SelectContent>
                 <SelectItem value="small">Small (RTX 5060 Ti)</SelectItem>
               </SelectContent>
@@ -74,10 +83,16 @@ function SettingsPage() {
       </Panel>
 
       <Panel className="p-5">
-        <PanelHeader title="External app paths" description="These paths must resolve before the bridge can launch UVR or REAPER." />
+        <PanelHeader
+          title="External app paths"
+          description="These paths must resolve before the bridge can launch UVR or REAPER."
+        />
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           <Field label="REAPER executable" placeholder="C:\\Program Files\\REAPER\\reaper.exe" />
-          <Field label="UVR executable" placeholder="C:\\Program Files\\Ultimate Vocal Remover\\UVR.exe" />
+          <Field
+            label="UVR executable"
+            placeholder="C:\\Program Files\\Ultimate Vocal Remover\\UVR.exe"
+          />
           <Field label="FFmpeg" defaultValue="ffmpeg (on PATH)" />
         </div>
       </Panel>
@@ -88,7 +103,9 @@ function SettingsPage() {
           <div>
             <Label>Output device (placeholder)</Label>
             <Select defaultValue="default">
-              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
               <SelectContent>
                 <SelectItem value="default">System default</SelectItem>
               </SelectContent>
@@ -106,7 +123,9 @@ function SettingsPage() {
           <div>
             <Label>Density</Label>
             <Select value={density} onValueChange={(v) => setDensity(v as typeof density)}>
-              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
               <SelectContent>
                 <SelectItem value="compact">Compact</SelectItem>
                 <SelectItem value="comfortable">Comfortable</SelectItem>
@@ -148,8 +167,14 @@ function SettingsPage() {
 }
 
 function Field({
-  label, defaultValue, placeholder,
-}: { label: string; defaultValue?: string; placeholder?: string }) {
+  label,
+  defaultValue,
+  placeholder,
+}: {
+  label: string;
+  defaultValue?: string;
+  placeholder?: string;
+}) {
   return (
     <div>
       <Label>{label}</Label>
@@ -161,7 +186,8 @@ function Field({
 function MockNotice() {
   return (
     <div className="rounded-lg border border-warn/30 bg-warn/5 px-4 py-3 text-xs text-warn">
-      Settings persistence is mocked in this UI shell. Changes will call the real local bridge once it is connected.
+      Settings persistence is mocked in this UI shell. Changes will call the real local bridge once
+      it is connected.
     </div>
   );
 }

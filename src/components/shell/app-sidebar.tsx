@@ -34,14 +34,39 @@ import { cn } from "@/lib/utils";
 const nav = [
   { title: "Dashboard", to: "/", icon: LayoutDashboard, match: (p: string) => p === "/" },
   { title: "Songs", to: "/songs", icon: Music2, match: (p: string) => p.startsWith("/songs") },
-  { title: "Generate", to: "/generate", icon: Wand2, match: (p: string) => p.startsWith("/generate") },
+  {
+    title: "Generate",
+    to: "/generate",
+    icon: Wand2,
+    match: (p: string) => p.startsWith("/generate"),
+  },
   { title: "Vocals", to: "/vocals", icon: Mic2, match: (p: string) => p.startsWith("/vocals") },
   { title: "Stems", to: "/stems", icon: Layers, match: (p: string) => p.startsWith("/stems") },
-  { title: "Library", to: "/library", icon: Library, match: (p: string) => p.startsWith("/library") },
-  { title: "Mix Review", to: "/mix-review", icon: Waves, match: (p: string) => p.startsWith("/mix-review") },
-  { title: "Releases", to: "/releases", icon: Rocket, match: (p: string) => p.startsWith("/releases") },
+  {
+    title: "Library",
+    to: "/library",
+    icon: Library,
+    match: (p: string) => p.startsWith("/library"),
+  },
+  {
+    title: "Mix Review",
+    to: "/mix-review",
+    icon: Waves,
+    match: (p: string) => p.startsWith("/mix-review"),
+  },
+  {
+    title: "Releases",
+    to: "/releases",
+    icon: Rocket,
+    match: (p: string) => p.startsWith("/releases"),
+  },
   { title: "System", to: "/system", icon: Cpu, match: (p: string) => p.startsWith("/system") },
-  { title: "Settings", to: "/settings", icon: Settings, match: (p: string) => p.startsWith("/settings") },
+  {
+    title: "Settings",
+    to: "/settings",
+    icon: Settings,
+    match: (p: string) => p.startsWith("/settings"),
+  },
 ] as const;
 
 export function AppSidebar() {
@@ -146,9 +171,7 @@ export function AppSidebar() {
             <SidebarStat
               label="Workspace"
               right={
-                <span className="truncate text-muted-foreground">
-                  {storage?.message ?? "—"}
-                </span>
+                <span className="truncate text-muted-foreground">{storage?.message ?? "—"}</span>
               }
             />
           </div>
