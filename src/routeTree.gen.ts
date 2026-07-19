@@ -9,38 +9,340 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VocalsRouteImport } from './routes/vocals'
+import { Route as SystemRouteImport } from './routes/system'
+import { Route as StemsRouteImport } from './routes/stems'
+import { Route as SongsRouteImport } from './routes/songs'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as ReleasesRouteImport } from './routes/releases'
+import { Route as MixReviewRouteImport } from './routes/mix-review'
+import { Route as LibraryRouteImport } from './routes/library'
+import { Route as GenerateRouteImport } from './routes/generate'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SongsSongIdRouteImport } from './routes/songs.$songId'
+import { Route as SongsSongIdIndexRouteImport } from './routes/songs.$songId.index'
+import { Route as SongsSongIdVocalsRouteImport } from './routes/songs.$songId.vocals'
+import { Route as SongsSongIdStemsRouteImport } from './routes/songs.$songId.stems'
+import { Route as SongsSongIdReaperRouteImport } from './routes/songs.$songId.reaper'
+import { Route as SongsSongIdNotesRouteImport } from './routes/songs.$songId.notes'
+import { Route as SongsSongIdMixesRouteImport } from './routes/songs.$songId.mixes'
+import { Route as SongsSongIdMastersRouteImport } from './routes/songs.$songId.masters'
+import { Route as SongsSongIdGenerationsRouteImport } from './routes/songs.$songId.generations'
+import { Route as SongsSongIdBriefRouteImport } from './routes/songs.$songId.brief'
 
+const VocalsRoute = VocalsRouteImport.update({
+  id: '/vocals',
+  path: '/vocals',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SystemRoute = SystemRouteImport.update({
+  id: '/system',
+  path: '/system',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StemsRoute = StemsRouteImport.update({
+  id: '/stems',
+  path: '/stems',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SongsRoute = SongsRouteImport.update({
+  id: '/songs',
+  path: '/songs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReleasesRoute = ReleasesRouteImport.update({
+  id: '/releases',
+  path: '/releases',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MixReviewRoute = MixReviewRouteImport.update({
+  id: '/mix-review',
+  path: '/mix-review',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LibraryRoute = LibraryRouteImport.update({
+  id: '/library',
+  path: '/library',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GenerateRoute = GenerateRouteImport.update({
+  id: '/generate',
+  path: '/generate',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SongsSongIdRoute = SongsSongIdRouteImport.update({
+  id: '/$songId',
+  path: '/$songId',
+  getParentRoute: () => SongsRoute,
+} as any)
+const SongsSongIdIndexRoute = SongsSongIdIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SongsSongIdRoute,
+} as any)
+const SongsSongIdVocalsRoute = SongsSongIdVocalsRouteImport.update({
+  id: '/vocals',
+  path: '/vocals',
+  getParentRoute: () => SongsSongIdRoute,
+} as any)
+const SongsSongIdStemsRoute = SongsSongIdStemsRouteImport.update({
+  id: '/stems',
+  path: '/stems',
+  getParentRoute: () => SongsSongIdRoute,
+} as any)
+const SongsSongIdReaperRoute = SongsSongIdReaperRouteImport.update({
+  id: '/reaper',
+  path: '/reaper',
+  getParentRoute: () => SongsSongIdRoute,
+} as any)
+const SongsSongIdNotesRoute = SongsSongIdNotesRouteImport.update({
+  id: '/notes',
+  path: '/notes',
+  getParentRoute: () => SongsSongIdRoute,
+} as any)
+const SongsSongIdMixesRoute = SongsSongIdMixesRouteImport.update({
+  id: '/mixes',
+  path: '/mixes',
+  getParentRoute: () => SongsSongIdRoute,
+} as any)
+const SongsSongIdMastersRoute = SongsSongIdMastersRouteImport.update({
+  id: '/masters',
+  path: '/masters',
+  getParentRoute: () => SongsSongIdRoute,
+} as any)
+const SongsSongIdGenerationsRoute = SongsSongIdGenerationsRouteImport.update({
+  id: '/generations',
+  path: '/generations',
+  getParentRoute: () => SongsSongIdRoute,
+} as any)
+const SongsSongIdBriefRoute = SongsSongIdBriefRouteImport.update({
+  id: '/brief',
+  path: '/brief',
+  getParentRoute: () => SongsSongIdRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/generate': typeof GenerateRoute
+  '/library': typeof LibraryRoute
+  '/mix-review': typeof MixReviewRoute
+  '/releases': typeof ReleasesRoute
+  '/settings': typeof SettingsRoute
+  '/songs': typeof SongsRouteWithChildren
+  '/stems': typeof StemsRoute
+  '/system': typeof SystemRoute
+  '/vocals': typeof VocalsRoute
+  '/songs/$songId': typeof SongsSongIdRouteWithChildren
+  '/songs/$songId/brief': typeof SongsSongIdBriefRoute
+  '/songs/$songId/generations': typeof SongsSongIdGenerationsRoute
+  '/songs/$songId/masters': typeof SongsSongIdMastersRoute
+  '/songs/$songId/mixes': typeof SongsSongIdMixesRoute
+  '/songs/$songId/notes': typeof SongsSongIdNotesRoute
+  '/songs/$songId/reaper': typeof SongsSongIdReaperRoute
+  '/songs/$songId/stems': typeof SongsSongIdStemsRoute
+  '/songs/$songId/vocals': typeof SongsSongIdVocalsRoute
+  '/songs/$songId/': typeof SongsSongIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/generate': typeof GenerateRoute
+  '/library': typeof LibraryRoute
+  '/mix-review': typeof MixReviewRoute
+  '/releases': typeof ReleasesRoute
+  '/settings': typeof SettingsRoute
+  '/songs': typeof SongsRouteWithChildren
+  '/stems': typeof StemsRoute
+  '/system': typeof SystemRoute
+  '/vocals': typeof VocalsRoute
+  '/songs/$songId/brief': typeof SongsSongIdBriefRoute
+  '/songs/$songId/generations': typeof SongsSongIdGenerationsRoute
+  '/songs/$songId/masters': typeof SongsSongIdMastersRoute
+  '/songs/$songId/mixes': typeof SongsSongIdMixesRoute
+  '/songs/$songId/notes': typeof SongsSongIdNotesRoute
+  '/songs/$songId/reaper': typeof SongsSongIdReaperRoute
+  '/songs/$songId/stems': typeof SongsSongIdStemsRoute
+  '/songs/$songId/vocals': typeof SongsSongIdVocalsRoute
+  '/songs/$songId': typeof SongsSongIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/generate': typeof GenerateRoute
+  '/library': typeof LibraryRoute
+  '/mix-review': typeof MixReviewRoute
+  '/releases': typeof ReleasesRoute
+  '/settings': typeof SettingsRoute
+  '/songs': typeof SongsRouteWithChildren
+  '/stems': typeof StemsRoute
+  '/system': typeof SystemRoute
+  '/vocals': typeof VocalsRoute
+  '/songs/$songId': typeof SongsSongIdRouteWithChildren
+  '/songs/$songId/brief': typeof SongsSongIdBriefRoute
+  '/songs/$songId/generations': typeof SongsSongIdGenerationsRoute
+  '/songs/$songId/masters': typeof SongsSongIdMastersRoute
+  '/songs/$songId/mixes': typeof SongsSongIdMixesRoute
+  '/songs/$songId/notes': typeof SongsSongIdNotesRoute
+  '/songs/$songId/reaper': typeof SongsSongIdReaperRoute
+  '/songs/$songId/stems': typeof SongsSongIdStemsRoute
+  '/songs/$songId/vocals': typeof SongsSongIdVocalsRoute
+  '/songs/$songId/': typeof SongsSongIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/generate'
+    | '/library'
+    | '/mix-review'
+    | '/releases'
+    | '/settings'
+    | '/songs'
+    | '/stems'
+    | '/system'
+    | '/vocals'
+    | '/songs/$songId'
+    | '/songs/$songId/brief'
+    | '/songs/$songId/generations'
+    | '/songs/$songId/masters'
+    | '/songs/$songId/mixes'
+    | '/songs/$songId/notes'
+    | '/songs/$songId/reaper'
+    | '/songs/$songId/stems'
+    | '/songs/$songId/vocals'
+    | '/songs/$songId/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/generate'
+    | '/library'
+    | '/mix-review'
+    | '/releases'
+    | '/settings'
+    | '/songs'
+    | '/stems'
+    | '/system'
+    | '/vocals'
+    | '/songs/$songId/brief'
+    | '/songs/$songId/generations'
+    | '/songs/$songId/masters'
+    | '/songs/$songId/mixes'
+    | '/songs/$songId/notes'
+    | '/songs/$songId/reaper'
+    | '/songs/$songId/stems'
+    | '/songs/$songId/vocals'
+    | '/songs/$songId'
+  id:
+    | '__root__'
+    | '/'
+    | '/generate'
+    | '/library'
+    | '/mix-review'
+    | '/releases'
+    | '/settings'
+    | '/songs'
+    | '/stems'
+    | '/system'
+    | '/vocals'
+    | '/songs/$songId'
+    | '/songs/$songId/brief'
+    | '/songs/$songId/generations'
+    | '/songs/$songId/masters'
+    | '/songs/$songId/mixes'
+    | '/songs/$songId/notes'
+    | '/songs/$songId/reaper'
+    | '/songs/$songId/stems'
+    | '/songs/$songId/vocals'
+    | '/songs/$songId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  GenerateRoute: typeof GenerateRoute
+  LibraryRoute: typeof LibraryRoute
+  MixReviewRoute: typeof MixReviewRoute
+  ReleasesRoute: typeof ReleasesRoute
+  SettingsRoute: typeof SettingsRoute
+  SongsRoute: typeof SongsRouteWithChildren
+  StemsRoute: typeof StemsRoute
+  SystemRoute: typeof SystemRoute
+  VocalsRoute: typeof VocalsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/vocals': {
+      id: '/vocals'
+      path: '/vocals'
+      fullPath: '/vocals'
+      preLoaderRoute: typeof VocalsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/system': {
+      id: '/system'
+      path: '/system'
+      fullPath: '/system'
+      preLoaderRoute: typeof SystemRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/stems': {
+      id: '/stems'
+      path: '/stems'
+      fullPath: '/stems'
+      preLoaderRoute: typeof StemsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/songs': {
+      id: '/songs'
+      path: '/songs'
+      fullPath: '/songs'
+      preLoaderRoute: typeof SongsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/releases': {
+      id: '/releases'
+      path: '/releases'
+      fullPath: '/releases'
+      preLoaderRoute: typeof ReleasesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mix-review': {
+      id: '/mix-review'
+      path: '/mix-review'
+      fullPath: '/mix-review'
+      preLoaderRoute: typeof MixReviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/library': {
+      id: '/library'
+      path: '/library'
+      fullPath: '/library'
+      preLoaderRoute: typeof LibraryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/generate': {
+      id: '/generate'
+      path: '/generate'
+      fullPath: '/generate'
+      preLoaderRoute: typeof GenerateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +350,129 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/songs/$songId': {
+      id: '/songs/$songId'
+      path: '/$songId'
+      fullPath: '/songs/$songId'
+      preLoaderRoute: typeof SongsSongIdRouteImport
+      parentRoute: typeof SongsRoute
+    }
+    '/songs/$songId/': {
+      id: '/songs/$songId/'
+      path: '/'
+      fullPath: '/songs/$songId/'
+      preLoaderRoute: typeof SongsSongIdIndexRouteImport
+      parentRoute: typeof SongsSongIdRoute
+    }
+    '/songs/$songId/vocals': {
+      id: '/songs/$songId/vocals'
+      path: '/vocals'
+      fullPath: '/songs/$songId/vocals'
+      preLoaderRoute: typeof SongsSongIdVocalsRouteImport
+      parentRoute: typeof SongsSongIdRoute
+    }
+    '/songs/$songId/stems': {
+      id: '/songs/$songId/stems'
+      path: '/stems'
+      fullPath: '/songs/$songId/stems'
+      preLoaderRoute: typeof SongsSongIdStemsRouteImport
+      parentRoute: typeof SongsSongIdRoute
+    }
+    '/songs/$songId/reaper': {
+      id: '/songs/$songId/reaper'
+      path: '/reaper'
+      fullPath: '/songs/$songId/reaper'
+      preLoaderRoute: typeof SongsSongIdReaperRouteImport
+      parentRoute: typeof SongsSongIdRoute
+    }
+    '/songs/$songId/notes': {
+      id: '/songs/$songId/notes'
+      path: '/notes'
+      fullPath: '/songs/$songId/notes'
+      preLoaderRoute: typeof SongsSongIdNotesRouteImport
+      parentRoute: typeof SongsSongIdRoute
+    }
+    '/songs/$songId/mixes': {
+      id: '/songs/$songId/mixes'
+      path: '/mixes'
+      fullPath: '/songs/$songId/mixes'
+      preLoaderRoute: typeof SongsSongIdMixesRouteImport
+      parentRoute: typeof SongsSongIdRoute
+    }
+    '/songs/$songId/masters': {
+      id: '/songs/$songId/masters'
+      path: '/masters'
+      fullPath: '/songs/$songId/masters'
+      preLoaderRoute: typeof SongsSongIdMastersRouteImport
+      parentRoute: typeof SongsSongIdRoute
+    }
+    '/songs/$songId/generations': {
+      id: '/songs/$songId/generations'
+      path: '/generations'
+      fullPath: '/songs/$songId/generations'
+      preLoaderRoute: typeof SongsSongIdGenerationsRouteImport
+      parentRoute: typeof SongsSongIdRoute
+    }
+    '/songs/$songId/brief': {
+      id: '/songs/$songId/brief'
+      path: '/brief'
+      fullPath: '/songs/$songId/brief'
+      preLoaderRoute: typeof SongsSongIdBriefRouteImport
+      parentRoute: typeof SongsSongIdRoute
+    }
   }
 }
 
+interface SongsSongIdRouteChildren {
+  SongsSongIdBriefRoute: typeof SongsSongIdBriefRoute
+  SongsSongIdGenerationsRoute: typeof SongsSongIdGenerationsRoute
+  SongsSongIdMastersRoute: typeof SongsSongIdMastersRoute
+  SongsSongIdMixesRoute: typeof SongsSongIdMixesRoute
+  SongsSongIdNotesRoute: typeof SongsSongIdNotesRoute
+  SongsSongIdReaperRoute: typeof SongsSongIdReaperRoute
+  SongsSongIdStemsRoute: typeof SongsSongIdStemsRoute
+  SongsSongIdVocalsRoute: typeof SongsSongIdVocalsRoute
+  SongsSongIdIndexRoute: typeof SongsSongIdIndexRoute
+}
+
+const SongsSongIdRouteChildren: SongsSongIdRouteChildren = {
+  SongsSongIdBriefRoute: SongsSongIdBriefRoute,
+  SongsSongIdGenerationsRoute: SongsSongIdGenerationsRoute,
+  SongsSongIdMastersRoute: SongsSongIdMastersRoute,
+  SongsSongIdMixesRoute: SongsSongIdMixesRoute,
+  SongsSongIdNotesRoute: SongsSongIdNotesRoute,
+  SongsSongIdReaperRoute: SongsSongIdReaperRoute,
+  SongsSongIdStemsRoute: SongsSongIdStemsRoute,
+  SongsSongIdVocalsRoute: SongsSongIdVocalsRoute,
+  SongsSongIdIndexRoute: SongsSongIdIndexRoute,
+}
+
+const SongsSongIdRouteWithChildren = SongsSongIdRoute._addFileChildren(
+  SongsSongIdRouteChildren,
+)
+
+interface SongsRouteChildren {
+  SongsSongIdRoute: typeof SongsSongIdRouteWithChildren
+}
+
+const SongsRouteChildren: SongsRouteChildren = {
+  SongsSongIdRoute: SongsSongIdRouteWithChildren,
+}
+
+const SongsRouteWithChildren = SongsRoute._addFileChildren(SongsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  GenerateRoute: GenerateRoute,
+  LibraryRoute: LibraryRoute,
+  MixReviewRoute: MixReviewRoute,
+  ReleasesRoute: ReleasesRoute,
+  SettingsRoute: SettingsRoute,
+  SongsRoute: SongsRouteWithChildren,
+  StemsRoute: StemsRoute,
+  SystemRoute: SystemRoute,
+  VocalsRoute: VocalsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
