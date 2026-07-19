@@ -13,6 +13,14 @@ import { Route as SongsRouteImport } from './routes/songs'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SongsSongIdRouteImport } from './routes/songs.$songId'
 import { Route as SongsSongIdIndexRouteImport } from './routes/songs.$songId.index'
+import { Route as SongsSongIdVocalsRouteImport } from './routes/songs.$songId.vocals'
+import { Route as SongsSongIdStemsRouteImport } from './routes/songs.$songId.stems'
+import { Route as SongsSongIdReaperRouteImport } from './routes/songs.$songId.reaper'
+import { Route as SongsSongIdNotesRouteImport } from './routes/songs.$songId.notes'
+import { Route as SongsSongIdMixesRouteImport } from './routes/songs.$songId.mixes'
+import { Route as SongsSongIdMastersRouteImport } from './routes/songs.$songId.masters'
+import { Route as SongsSongIdGenerationsRouteImport } from './routes/songs.$songId.generations'
+import { Route as SongsSongIdBriefRouteImport } from './routes/songs.$songId.brief'
 
 const SongsRoute = SongsRouteImport.update({
   id: '/songs',
@@ -34,16 +42,72 @@ const SongsSongIdIndexRoute = SongsSongIdIndexRouteImport.update({
   path: '/',
   getParentRoute: () => SongsSongIdRoute,
 } as any)
+const SongsSongIdVocalsRoute = SongsSongIdVocalsRouteImport.update({
+  id: '/vocals',
+  path: '/vocals',
+  getParentRoute: () => SongsSongIdRoute,
+} as any)
+const SongsSongIdStemsRoute = SongsSongIdStemsRouteImport.update({
+  id: '/stems',
+  path: '/stems',
+  getParentRoute: () => SongsSongIdRoute,
+} as any)
+const SongsSongIdReaperRoute = SongsSongIdReaperRouteImport.update({
+  id: '/reaper',
+  path: '/reaper',
+  getParentRoute: () => SongsSongIdRoute,
+} as any)
+const SongsSongIdNotesRoute = SongsSongIdNotesRouteImport.update({
+  id: '/notes',
+  path: '/notes',
+  getParentRoute: () => SongsSongIdRoute,
+} as any)
+const SongsSongIdMixesRoute = SongsSongIdMixesRouteImport.update({
+  id: '/mixes',
+  path: '/mixes',
+  getParentRoute: () => SongsSongIdRoute,
+} as any)
+const SongsSongIdMastersRoute = SongsSongIdMastersRouteImport.update({
+  id: '/masters',
+  path: '/masters',
+  getParentRoute: () => SongsSongIdRoute,
+} as any)
+const SongsSongIdGenerationsRoute = SongsSongIdGenerationsRouteImport.update({
+  id: '/generations',
+  path: '/generations',
+  getParentRoute: () => SongsSongIdRoute,
+} as any)
+const SongsSongIdBriefRoute = SongsSongIdBriefRouteImport.update({
+  id: '/brief',
+  path: '/brief',
+  getParentRoute: () => SongsSongIdRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/songs': typeof SongsRouteWithChildren
   '/songs/$songId': typeof SongsSongIdRouteWithChildren
+  '/songs/$songId/brief': typeof SongsSongIdBriefRoute
+  '/songs/$songId/generations': typeof SongsSongIdGenerationsRoute
+  '/songs/$songId/masters': typeof SongsSongIdMastersRoute
+  '/songs/$songId/mixes': typeof SongsSongIdMixesRoute
+  '/songs/$songId/notes': typeof SongsSongIdNotesRoute
+  '/songs/$songId/reaper': typeof SongsSongIdReaperRoute
+  '/songs/$songId/stems': typeof SongsSongIdStemsRoute
+  '/songs/$songId/vocals': typeof SongsSongIdVocalsRoute
   '/songs/$songId/': typeof SongsSongIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/songs': typeof SongsRouteWithChildren
+  '/songs/$songId/brief': typeof SongsSongIdBriefRoute
+  '/songs/$songId/generations': typeof SongsSongIdGenerationsRoute
+  '/songs/$songId/masters': typeof SongsSongIdMastersRoute
+  '/songs/$songId/mixes': typeof SongsSongIdMixesRoute
+  '/songs/$songId/notes': typeof SongsSongIdNotesRoute
+  '/songs/$songId/reaper': typeof SongsSongIdReaperRoute
+  '/songs/$songId/stems': typeof SongsSongIdStemsRoute
+  '/songs/$songId/vocals': typeof SongsSongIdVocalsRoute
   '/songs/$songId': typeof SongsSongIdIndexRoute
 }
 export interface FileRoutesById {
@@ -51,14 +115,58 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/songs': typeof SongsRouteWithChildren
   '/songs/$songId': typeof SongsSongIdRouteWithChildren
+  '/songs/$songId/brief': typeof SongsSongIdBriefRoute
+  '/songs/$songId/generations': typeof SongsSongIdGenerationsRoute
+  '/songs/$songId/masters': typeof SongsSongIdMastersRoute
+  '/songs/$songId/mixes': typeof SongsSongIdMixesRoute
+  '/songs/$songId/notes': typeof SongsSongIdNotesRoute
+  '/songs/$songId/reaper': typeof SongsSongIdReaperRoute
+  '/songs/$songId/stems': typeof SongsSongIdStemsRoute
+  '/songs/$songId/vocals': typeof SongsSongIdVocalsRoute
   '/songs/$songId/': typeof SongsSongIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/songs' | '/songs/$songId' | '/songs/$songId/'
+  fullPaths:
+    | '/'
+    | '/songs'
+    | '/songs/$songId'
+    | '/songs/$songId/brief'
+    | '/songs/$songId/generations'
+    | '/songs/$songId/masters'
+    | '/songs/$songId/mixes'
+    | '/songs/$songId/notes'
+    | '/songs/$songId/reaper'
+    | '/songs/$songId/stems'
+    | '/songs/$songId/vocals'
+    | '/songs/$songId/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/songs' | '/songs/$songId'
-  id: '__root__' | '/' | '/songs' | '/songs/$songId' | '/songs/$songId/'
+  to:
+    | '/'
+    | '/songs'
+    | '/songs/$songId/brief'
+    | '/songs/$songId/generations'
+    | '/songs/$songId/masters'
+    | '/songs/$songId/mixes'
+    | '/songs/$songId/notes'
+    | '/songs/$songId/reaper'
+    | '/songs/$songId/stems'
+    | '/songs/$songId/vocals'
+    | '/songs/$songId'
+  id:
+    | '__root__'
+    | '/'
+    | '/songs'
+    | '/songs/$songId'
+    | '/songs/$songId/brief'
+    | '/songs/$songId/generations'
+    | '/songs/$songId/masters'
+    | '/songs/$songId/mixes'
+    | '/songs/$songId/notes'
+    | '/songs/$songId/reaper'
+    | '/songs/$songId/stems'
+    | '/songs/$songId/vocals'
+    | '/songs/$songId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -96,14 +204,86 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SongsSongIdIndexRouteImport
       parentRoute: typeof SongsSongIdRoute
     }
+    '/songs/$songId/vocals': {
+      id: '/songs/$songId/vocals'
+      path: '/vocals'
+      fullPath: '/songs/$songId/vocals'
+      preLoaderRoute: typeof SongsSongIdVocalsRouteImport
+      parentRoute: typeof SongsSongIdRoute
+    }
+    '/songs/$songId/stems': {
+      id: '/songs/$songId/stems'
+      path: '/stems'
+      fullPath: '/songs/$songId/stems'
+      preLoaderRoute: typeof SongsSongIdStemsRouteImport
+      parentRoute: typeof SongsSongIdRoute
+    }
+    '/songs/$songId/reaper': {
+      id: '/songs/$songId/reaper'
+      path: '/reaper'
+      fullPath: '/songs/$songId/reaper'
+      preLoaderRoute: typeof SongsSongIdReaperRouteImport
+      parentRoute: typeof SongsSongIdRoute
+    }
+    '/songs/$songId/notes': {
+      id: '/songs/$songId/notes'
+      path: '/notes'
+      fullPath: '/songs/$songId/notes'
+      preLoaderRoute: typeof SongsSongIdNotesRouteImport
+      parentRoute: typeof SongsSongIdRoute
+    }
+    '/songs/$songId/mixes': {
+      id: '/songs/$songId/mixes'
+      path: '/mixes'
+      fullPath: '/songs/$songId/mixes'
+      preLoaderRoute: typeof SongsSongIdMixesRouteImport
+      parentRoute: typeof SongsSongIdRoute
+    }
+    '/songs/$songId/masters': {
+      id: '/songs/$songId/masters'
+      path: '/masters'
+      fullPath: '/songs/$songId/masters'
+      preLoaderRoute: typeof SongsSongIdMastersRouteImport
+      parentRoute: typeof SongsSongIdRoute
+    }
+    '/songs/$songId/generations': {
+      id: '/songs/$songId/generations'
+      path: '/generations'
+      fullPath: '/songs/$songId/generations'
+      preLoaderRoute: typeof SongsSongIdGenerationsRouteImport
+      parentRoute: typeof SongsSongIdRoute
+    }
+    '/songs/$songId/brief': {
+      id: '/songs/$songId/brief'
+      path: '/brief'
+      fullPath: '/songs/$songId/brief'
+      preLoaderRoute: typeof SongsSongIdBriefRouteImport
+      parentRoute: typeof SongsSongIdRoute
+    }
   }
 }
 
 interface SongsSongIdRouteChildren {
+  SongsSongIdBriefRoute: typeof SongsSongIdBriefRoute
+  SongsSongIdGenerationsRoute: typeof SongsSongIdGenerationsRoute
+  SongsSongIdMastersRoute: typeof SongsSongIdMastersRoute
+  SongsSongIdMixesRoute: typeof SongsSongIdMixesRoute
+  SongsSongIdNotesRoute: typeof SongsSongIdNotesRoute
+  SongsSongIdReaperRoute: typeof SongsSongIdReaperRoute
+  SongsSongIdStemsRoute: typeof SongsSongIdStemsRoute
+  SongsSongIdVocalsRoute: typeof SongsSongIdVocalsRoute
   SongsSongIdIndexRoute: typeof SongsSongIdIndexRoute
 }
 
 const SongsSongIdRouteChildren: SongsSongIdRouteChildren = {
+  SongsSongIdBriefRoute: SongsSongIdBriefRoute,
+  SongsSongIdGenerationsRoute: SongsSongIdGenerationsRoute,
+  SongsSongIdMastersRoute: SongsSongIdMastersRoute,
+  SongsSongIdMixesRoute: SongsSongIdMixesRoute,
+  SongsSongIdNotesRoute: SongsSongIdNotesRoute,
+  SongsSongIdReaperRoute: SongsSongIdReaperRoute,
+  SongsSongIdStemsRoute: SongsSongIdStemsRoute,
+  SongsSongIdVocalsRoute: SongsSongIdVocalsRoute,
   SongsSongIdIndexRoute: SongsSongIdIndexRoute,
 }
 
